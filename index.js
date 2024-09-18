@@ -34,9 +34,9 @@ function redirectToFile(fileName) {
   
   // Construct the full URL
   //const url = `${hostname}${port ? ':' + port : ''}/${fileName}`;
-  const url = `$/${fileName}`;
+  const url = filename;
   // Redirect to the constructed URL
-  window.location.href = 'Patient List.html';
+  window.location.href = url;
   alert(url);
 }
 
