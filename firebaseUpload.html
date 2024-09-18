@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Detail Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            width: 300px;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Enter Patient Detail</h2>
+
+        <form>
+            <label for="patientName">Name of Patient:</label>
+            <input type="text" id="patientName" name="patientName" required>
+
+            <br><br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" " required>
+
+            <br><br>
+
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" readonly>
+
+            <br><br>
+
+            <label for="admissionDate">Admission Date:</label>
+            <input type="date" id="admissionDate" name="admissionDate" onclick="setAdmissionDateToday()" required>
+
+            <br><br>
+
+            <button type="button" id="save">Save</button>
+            <button type="button" id="resetForm">Reset Form</button>
+            <button type="button" onclick="goToMainMenu()">Go to Main Menu</button>
+        </form>
+    </div>
+   
+    <script type="module" src="index.js">
+        
+    </script>
+    
+
+</body>
+
+
+</html>
