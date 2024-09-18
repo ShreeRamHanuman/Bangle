@@ -33,8 +33,8 @@ function redirectToFile(fileName) {
   const port = window.location.port; // e.g., '5500'
   
   // Construct the full URL
-  const url = `${hostname}${port ? ':' + port : ''}/${fileName}`;
-  
+  //const url = `${hostname}${port ? ':' + port : ''}/${fileName}`;
+  const url = `$/${fileName}`;
   // Redirect to the constructed URL
   window.location.href = url;
   alert(url);
