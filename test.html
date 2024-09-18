@@ -3,7 +3,15 @@
  </head>
  <body>
   <script src="https://www.puck-js.com/puck.js"></script>
+  <script>
+   Puck.magOn();
+Puck.on('mag', function(xyz) {
+  console.log(xyz);
+});
+  </script>
   <button onclick="Puck.write('LED1.set();\n');">LED On!</button>
   <button onclick="Puck.write('LED1.reset();\n');">LED Off!</button>
+
+  
  </body>
 </html>
