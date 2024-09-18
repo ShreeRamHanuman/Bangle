@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient List Carousel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .patient-container {
+            overflow: hidden;
+        }
+
+        .patient-cards {
+            display: flex;
+            justify-content: center;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .patient-card {
+            width: 200px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            transition: box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .patient-card:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .add-patient-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .carousel-button {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Patient List</h2>
+
+    <div class="carousel-controls">
+        <!-- Previous Button -->
+        <button class="carousel-button" onclick="showPrevPatient()">Previous</button>
+
+        <div class="patient-container">
+            <div class="patient-cards">
+                <!-- Patient 1 -->
+                <div class="patient-card" onclick="location.href='vitals.html?id=1'">
+                    <p>Patient ID: 1</p>
+                    <img src="patient1.jpg" alt="Patient 1">
+                    <p>John Doe</p>
+                    <p>Age: 35</p>
+                    <p>Admission Date: 2024-01-27</p>
+                    <p>Blood Group: A+</p>
+                </div>
+
+                <!-- Patient 2 -->
+                <div class="patient-card" onclick="location.href='vitals.html?id=2'">
+                    <p>Patient ID: 2</p>
+                    <img src="patient1.jpg" alt="Patient 1">
+                    <p>John Doe</p>
+                    <p>Age: 35</p>
+                    <p>Admission Date: 2024-01-27</p>
+                    <p>Blood Group: A+</p>
+                </div>
+
+                <!-- Patient 3 -->
+                <div class="patient-card" onclick="location.href='vitals.html?id=3'">
+                    <p>Patient ID: 3</p>
+                    <img src="patient3.jpg" alt="Patient 3">
+                    <p>Robert Johnson</p>
+                    <p>Age: 42</p>
+                    <p>Admission Date: 2024-01-27</p>
+                    <p>Blood Group: O+</p>
+                </div>
+
+                <!-- Patient 4-->
+                <div class="patient-card" onclick="location.href='vitals.html?id=4'">
+                    <p>Patient ID: 4</p>
+                    <img src="patient3.jpg" alt="Patient 4">
+                    <p>Martin Drinkwater</p>
+                    <p>Age: 42</p>
+                    <p>Admission Date: 2024-01-27</p>
+                    <p>Blood Group: O+</p>
+                </div>
+                <!-- Patient 5-->
+                <div class="patient-card" onclick="location.href='vitals.html?id=5'">
+                    <p>Patient ID: 5</p>
+                    <img src="patient3.jpg" alt="Patient 5">
+                    <p>Martin Drinkwater</p>
+                    <p>Age: 42</p>
+                    <p>Admission Date: 2024-01-27</p>
+                    <p>Blood Group: O+</p>
+</div>
+
+                <!-- Add more patient cards as needed -->
+            </div>
+        </div>
+
+        <!-- Next Button -->
+        <button class="carousel-button" onclick="showNextPatient()">Next</button>
+    </div>
+
+    <!-- Add New Patient Button -->
+    <button class="add-patient-button" onclick="location.href='enterPatient.html'">Add New Patient</button>
+
+    <!-- JavaScript for Carousel -->
+    <script>
+        const patientCardsContainer = document.querySelector('.patient-cards');
+        let currentIndex = 0;
+
+        function showNextPatient() {
+            currentIndex = (currentIndex + 1) % patientCardsContainer.children.length;
+            updateCarousel();
+        }
+
+        function showPrevPatient() {
+            currentIndex = (currentIndex - 1 + patientCardsContainer.children.length) % patientCardsContainer.children.length;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const translateValue = -currentIndex * 220;
+            patientCardsContainer.style.transform = `translateX(${translateValue}px)`;
+        }
+    </script>
+</body>
+</html>
