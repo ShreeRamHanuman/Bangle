@@ -26,14 +26,14 @@ var id =1;
 
 export function saveToFirebase(patientName, currentTime, temperature) {
 // Save patient data to the database
-            set(ref(database, 'Patient/'+patientName), {
+            set(ref(database, patientName+'/'+currentTime), {
                 patientName: patientName,
                 currentTime: currentTime,
                 temperature: temperature
             })
             .then(() => {
              // redirectToFile('PatientList.html');
-                alert('Saved');
+              //  alert('Saved');
            
                 // Call the function to redirect to PatientList.html
                 
