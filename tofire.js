@@ -58,9 +58,11 @@ export function readFromFirebase(patientName, id) {
             if (snapshot.exists()) {
                 // Data exists
                 const data = snapshot.val();
-              console.log("Name:", data.patientName);
-                console.log("Time:", data.currentTime);
-                console.log("Temperature:", data.temperature);
+             return {
+                    name: data.patientName,
+                    time: data.currentTime,
+                    temperature: data.temperature
+                };
                 // Process the data (e.g., display in the UI)
             } else {
                 // Data does not exist
