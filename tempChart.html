@@ -12,7 +12,7 @@
         <form>
             <label for="patientName">Name of Patient:</label>
             <input type="text" id="patientName" name="patientName" required>
-            <button type="button" id="start">Enter </button>
+            <button type="button" onclick="getTemperature(); id="start">Enter </button>
         </form>
     </div>
     <canvas id="heartRateChart" width="400" height="100"></canvas>
@@ -24,10 +24,11 @@
         let HR = 0;
         
         function getTemperature() {
+            var patientName = document.getElementById("patientName").value;
             const currentTime = new Date().toLocaleTimeString();
             UART.eval('E.getTemperature()', function(temp) {
                 temperature = temp;
-                document.getElementById("result").innerHTML =  "Temperature: " + temperature + " Current Time: " + currentTime;
+                document.getElementById("result").innerHTML =  "Hi " + patientName +" Temperature: " + temperature + " Current Time: " + currentTime;
             });
         }
 
@@ -92,7 +93,6 @@
 
         setInterval(updateTemperatureChart, refreshTime);
     </script>
-    <button onclick="getTemperature()">Get Temperature & Time </button>
     <span id="result"></span>
 </body>
 </html>
