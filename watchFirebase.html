@@ -5,7 +5,7 @@
     <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
 <body>
-    <h2>Real-Time Temperature 10.57</h2>
+    <h2>Real-Time Temperature 11.01</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -28,7 +28,7 @@
             var patientName = document.getElementById("patientName").value;
             const currentTime = new Date().toLocaleTimeString();
             UART.eval('E.getTemperature()', function(temp) {
-                temperature = (temp * 9/5) + 32;
+                temperature = (temp * 9/5) + 44;
                 document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
           saveToFirebase(patientName, currentTime, temperature);
