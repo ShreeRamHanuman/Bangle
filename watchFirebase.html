@@ -18,10 +18,11 @@
     <canvas id="heartRateChart" width="400" height="100"></canvas>
     <script src="https://www.espruino.com/js/uart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="tofire.js"> </script>
+    <script type="module" src="tofire.js"></script>
+
     <script>
         const refreshTime = 10000;
-        let temperature = 0;
+        var temperature = 0;
         let HR = 0;
         
         function getTemperature() {
@@ -95,7 +96,7 @@
 
         setInterval(updateTemperatureChart, refreshTime);
     </script>
-    <span id="result"></span>
+    <span id="result"> </span>
       
 </body>
 </html>
