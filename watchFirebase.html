@@ -83,11 +83,13 @@
             const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             heartRateChart.data.labels.push(newTime);
             heartRateChart.data.datasets[0].data.push(temperature);
+                heartRateChart.data.datasets[1].data.push(temperature+5);
 
             // Keep only 60 data points
             if (heartRateChart.data.labels.length > 120) {
                 heartRateChart.data.labels.shift();
                 heartRateChart.data.datasets[0].data.shift();
+                heartRateChart.data.datasets[1].data.shift();
             }
 
             heartRateChart.update();
