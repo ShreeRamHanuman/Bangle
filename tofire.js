@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 
-console.log("JS File Loaded -- tofire.js 10:9");
+console.log("JS File Loaded -- tofire.js 11:9");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -44,3 +44,28 @@ export function saveToFirebase(patientName, currentTime, temperature) {
             });
 //window.location.href = 'Patient List.html';
 }
+
+// Function to read data based on patient name
+export function readFromFirebase(patientName) {
+    const database = getDatabase();
+    const patientRef = ref(database, patientName);
+
+    get(patientRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // Data exists
+                const data = snapshot.val();
+                console.log("Patient Data:", data);
+                // Process the data (e.g., display in the UI)
+            } else {
+                // Data does not exist
+                console.log("No data available for this patient.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error reading from database: ", error);
+        });
+}
+readFromFirebase("Puskar"); // Replace "JohnDoe" with the actual patient name
+
+
