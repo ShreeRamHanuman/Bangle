@@ -5,13 +5,13 @@
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
   function getTemperature() {
-    UART.eval('Bangle.isCharging()', function(t) {
+    UART.eval('E.getTemperature()', function(t) {
       document.getElementById("result").innerHTML = t;
     });
   }
    setInterval(getTemperature, 30000); // Refresh every 30 seconds
   </script>
-  <button onclick="getTemperature()">Get Charging</button>
+  <button onclick="getTemperature()">Get Temperature </button>
   <span id="result"></span>
  </body>
 </html>
