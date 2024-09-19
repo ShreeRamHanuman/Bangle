@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 
-console.log("tofire.js loaded-- by Puskar");
+console.log("JS File Loaded -- tofire.js");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -20,11 +20,11 @@ import { getDatabase, ref, set, get, child, remove, update } from "https://www.g
 const app = initializeApp(firebaseConfig);
 
 // Set database variable
-const database = getDatabase(app)
+const database = getDatabase(app);
 
 var id =1;
 
-function save(patientName, currentTime, temperature) {
+function saveToFirebase(patientName, currentTime, temperature) {
 // Save patient data to the database
             set(ref(database, 'Patient/'+patientName), {
                 patientName: patientName,
