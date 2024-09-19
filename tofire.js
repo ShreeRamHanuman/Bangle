@@ -24,7 +24,7 @@ const database = getDatabase(app);
 
 var id =1;
 
-function saveToFirebase(patientName, currentTime, temperature) {
+export function saveToFirebase(patientName, currentTime, temperature) {
 // Save patient data to the database
             set(ref(database, 'Patient/'+patientName), {
                 patientName: patientName,
