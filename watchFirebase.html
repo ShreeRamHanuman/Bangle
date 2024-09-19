@@ -5,7 +5,7 @@
     <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
 <body>
-    <h2>Real-Time Temperature 11.01</h2>
+    <h2>Real-Time Temperature 11.31</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" >
         import { saveToFirebase } from './tofire.js';
+        import { readFromFirebase } from './tofire.js';
         const refreshTime = 10000;
         var temperature = 0;
         let HR = 0;
@@ -32,6 +33,7 @@
                 document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
           saveToFirebase(patientName, currentTime, temperature);
+            readFromFirebase(patientName); // Replace "Puskar" with the actual patient name
         }
 
         setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
