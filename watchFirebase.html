@@ -1,11 +1,13 @@
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
+
 <body>
-    <h2>Real-Time Temperature 9.33</h2>
+    <h2>Real-Time Temperature 9.56</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -18,38 +20,26 @@
     <canvas id="heartRateChart" width="400" height="100"></canvas>
     <script src="https://www.espruino.com/js/uart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" >
+    <script type="module">
         import { saveToFirebase } from './tofire.js';
         import { readFromFirebase } from './tofire.js';
         const refreshTime = 10000;
         var temperature = 0;
         let HR = 0;
-        var id =1;
+        var id = 1;
         function getTemperature() {
-            id=id+1;
+            id = id + 1;
             var patientName = document.getElementById("patientName").value;
             const currentTime = new Date().toLocaleTimeString();
-            UART.eval('E.getTemperature()', function(temp) {
-                temperature = (temp * 9/5) + 44;
-                document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
+            UART.eval('E.getTemperature()', function (temp) {
+                temperature = (temp * 9 / 5) + 44;
+                document.getElementById("result").innerHTML = "Hi " + patientName + " Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
-          saveToFirebase(patientName, currentTime, temperature);
-           // readFromFirebase(patientName,id); 
-           readFromFirebase("patientName", id)
-        .then((firebaseData) => {
-            if (firebaseData) {
-                console.log("Name:", firebaseData.name);
-                console.log("Time:", firebaseData.time);
-                console.log("Temperature:", firebaseData.temperature);
-            } else {
-                console.log("No patient data available.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error fetching patient data:", error);
-        });
-    
-    
+            saveToFirebase(patientName, currentTime, temperature);
+            // readFromFirebase(patientName,id); 
+            readFromFirebase("patientName", id); // Issue in this code
+
+
 
         }
 
@@ -62,7 +52,7 @@
         for (let i = 0; i < 2; i++) {
             labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
         }
-        
+
         const data = {
             labels: labels,
             datasets: [{
@@ -72,13 +62,13 @@
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
             },
-                        {
-                    label: 'Temperature + 5 (°C)',  // Second dataset
-                    data: [],
-                    fill: false,
-                    borderColor: 'rgb(255, 99, 132)', // Different color for the second line
-                    tension: 0.1
-                }]
+            {
+                label: 'Temperature + 5 (°C)',  // Second dataset
+                data: [],
+                fill: false,
+                borderColor: 'rgb(255, 99, 132)', // Different color for the second line
+                tension: 0.1
+            }]
         };
 
         const config = {
@@ -105,11 +95,11 @@
         };
 
         const heartRateChart = new Chart(ctx, config);
-            function updateTemperatureChart() {
+        function updateTemperatureChart() {
             const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             heartRateChart.data.labels.push(newTime);
             heartRateChart.data.datasets[0].data.push(temperature);
-                heartRateChart.data.datasets[1].data.push(temperature+5);
+            heartRateChart.data.datasets[1].data.push(temperature + 5);
 
             // Keep only 60 data points
             if (heartRateChart.data.labels.length > 120) {
@@ -124,6 +114,7 @@
         setInterval(updateTemperatureChart, refreshTime);
     </script>
     <span id="result"> </span>
-      
+
 </body>
+
 </html>
