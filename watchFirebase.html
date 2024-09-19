@@ -18,6 +18,7 @@
     <canvas id="heartRateChart" width="400" height="100"></canvas>
     <script src="https://www.espruino.com/js/uart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="tofire.js"> </script>
     <script>
         const refreshTime = 10000;
         let temperature = 0;
@@ -30,7 +31,7 @@
                 temperature = temp;
                 document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
-          save(patientName, currentTime, temperature);
+          saveToFirebase(patientName, currentTime, temperature);
         }
 
         setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
@@ -95,6 +96,6 @@
         setInterval(updateTemperatureChart, refreshTime);
     </script>
     <span id="result"></span>
-      <script type="module" src="tofire.js"> </script>
+      
 </body>
 </html>
