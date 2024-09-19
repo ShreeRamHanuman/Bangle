@@ -22,15 +22,9 @@ const app = initializeApp(firebaseConfig);
 // Set database variable
 const database = getDatabase(app)
 
-const getSave = document.getElementById('start');
-
 var id =1;
 
-function save() {
-var patientName = document.getElementById("patientName").value;
-const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-var temperature = temperature;
-
+function save(patientName, currentTime, temperature) {
 // Save patient data to the database
             set(ref(database, 'Patient/'+patientName), {
                 patientName: patientName,
@@ -50,4 +44,3 @@ var temperature = temperature;
             });
 //window.location.href = 'Patient List.html';
 }
-getSave.addEventListener('click',start)
