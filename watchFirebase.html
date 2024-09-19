@@ -35,11 +35,19 @@
             });
           saveToFirebase(patientName, currentTime, temperature);
            // readFromFirebase(patientName,id); 
-           var firebaseData = readFromFirebase("patientName", id); /// This code is not working
-    
-        console.log("Name:", firebaseData.name);
-        console.log("Time:", firebaseData.time);
-        console.log("Temperature:", firebaseData.temperature);
+           readFromFirebase("patientName", id)
+        .then((firebaseData) => {
+            if (firebaseData) {
+                console.log("Name:", firebaseData.name);
+                console.log("Time:", firebaseData.time);
+                console.log("Temperature:", firebaseData.temperature);
+            } else {
+                console.log("No patient data available.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching patient data:", error);
+        });
     
     
 
