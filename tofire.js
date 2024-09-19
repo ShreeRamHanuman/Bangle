@@ -25,12 +25,13 @@ const database = getDatabase(app);
 var id =1;
 
 export function saveToFirebase(patientName, currentTime, temperature) {
+  id= id+1;
 // Save patient data to the database
             set(ref(database, patientName+'/'+currentTime), {
                 patientName: patientName,
                 currentTime: currentTime,
                 temperature: temperature,
-              id: id+1;
+              id: id
             })
             .then(() => {
              // redirectToFile('PatientList.html');
