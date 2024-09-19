@@ -2,10 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch to Real-Time Firebase Temperature Line Chart 10.42</title>
+    <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
 <body>
-    <h2>Real-Time Temperature</h2>
+    <h2>Real-Time Temperature 10.49</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -52,7 +52,14 @@
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
-            }]
+            },
+                        {
+                    label: 'Temperature + 5 (°C)',  // Second dataset
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)', // Different color for the second line
+                    tension: 0.1
+                }]
         };
 
         const config = {
