@@ -5,7 +5,7 @@
     <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
 <body>
-    <h2>Real-Time Temperature 11.41</h2>
+    <h2>Real-Time Temperature 11.47</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -24,7 +24,7 @@
         const refreshTime = 10000;
         var temperature = 0;
         let HR = 0;
-        
+        var id =1;
         function getTemperature() {
             var patientName = document.getElementById("patientName").value;
             const currentTime = new Date().toLocaleTimeString();
@@ -33,7 +33,7 @@
                 document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
           saveToFirebase(patientName, currentTime, temperature);
-            readFromFirebase(patientName,currentTime); // Replace "Puskar" with the actual patient name
+            readFromFirebase(patientName,id+1); // Replace "Puskar" with the actual patient name
         }
 
         setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
