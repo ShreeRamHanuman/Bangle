@@ -4,9 +4,10 @@
  <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
+  var currentTime = new Date().toLocaleTimeString();
   function getTemperature() {
     UART.eval('E.getTemperature()', function(t) {
-      document.getElementById("result").innerHTML = t;
+      document.getElementById("result").innerHTML =  "Temperature: " + t +  " Current Time: " + currentTime;
     });
   }
    setInterval(getTemperature, 30000); // Refresh every 30 seconds
