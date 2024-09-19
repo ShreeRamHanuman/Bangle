@@ -30,6 +30,7 @@ export function saveToFirebase(patientName, currentTime, temperature) {
                 patientName: patientName,
                 currentTime: currentTime,
                 temperature: temperature
+              id:id+1;
             })
             .then(() => {
              // redirectToFile('PatientList.html');
