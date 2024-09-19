@@ -51,7 +51,7 @@ export function saveToFirebase(patientName, currentTime, temperature) {
 export function readFromFirebase(patientName, id) {
     const database = getDatabase();
   const path = `${patientName}/${id}`;
-    const patientRef = ref(database, patientName);
+    const patientRef = ref(database, path);
 
     get(patientRef)
         .then((snapshot) => {
