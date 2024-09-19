@@ -5,7 +5,7 @@
     <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
 <body>
-    <h2>Real-Time Temperature 12.24</h2>
+    <h2>Real-Time Temperature 9.27</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -35,11 +35,11 @@
             });
           saveToFirebase(patientName, currentTime, temperature);
            // readFromFirebase(patientName,id); 
-           readFromFirebase("Puskar", 7) /// This code is not working
+           readFromFirebase("patientName", id) /// This code is not working
     {
-        console.log("Name:", data.patientName);
-        console.log("Time:", data.currentTime);
-        console.log("Temperature:", data.temperature);
+        console.log("Name:", name);
+        console.log("Time:", time);
+        console.log("Temperature:", temperature);
     }
     
 
