@@ -28,7 +28,7 @@
             const currentTime = new Date().toLocaleTimeString();
             UART.eval('E.getTemperature()', function(temp) {
                 temperature = temp;
-                document.getElementById("result").innerHTML =  "Hi " + patientName +" Temperature: " + temperature + " Current Time: " + currentTime;
+                document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
         }
 
