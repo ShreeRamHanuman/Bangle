@@ -5,7 +5,7 @@
     <title>Watch to Real-Time Firebase Temperature Line Chart </title>
 </head>
 <body>
-    <h2>Real-Time Temperature 12.04</h2>
+    <h2>Real-Time Temperature 12.24</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -35,16 +35,14 @@
             });
           saveToFirebase(patientName, currentTime, temperature);
            // readFromFirebase(patientName,id); 
-            readFromFirebase(patientName,id)
-    .then((data) => {
+           readFromFirebase(patientName, id)
+    {
         console.log("Name:", data.name);
         console.log("Time:", data.time);
         console.log("Temperature:", data.temperature);
         // Use data here
     })
-    .catch((error) => {
-        console.error("Failed to fetch data:", error);
-    });
+    
 // Replace "Puskar" with the actual patient name
         }
 
