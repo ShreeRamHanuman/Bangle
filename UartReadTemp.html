@@ -4,8 +4,9 @@
  <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
-  var currentTime = new Date().toLocaleTimeString();
+  
   function getTemperature() {
+   var currentTime = new Date().toLocaleTimeString();
     UART.eval('E.getTemperature()', function(t) {
       document.getElementById("result").innerHTML =  "Temperature: " + t +  " Current Time: " + currentTime;
     });
