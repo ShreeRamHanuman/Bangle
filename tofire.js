@@ -46,8 +46,9 @@ export function saveToFirebase(patientName, currentTime, temperature) {
 }
 
 // Function to read data based on patient name
-export function readFromFirebase(patientName) {
+export function readFromFirebase(patientName, time) {
     const database = getDatabase();
+  const path = `${patientName}/${time}`;
     const patientRef = ref(database, patientName);
 
     get(patientRef)
@@ -55,7 +56,8 @@ export function readFromFirebase(patientName) {
             if (snapshot.exists()) {
                 // Data exists
                 const data = snapshot.val();
-                console.log("Patient Data:", data);
+                console.log("Time:", data.currentTime);
+                console.log("Temperature:", data.temperature);
                 // Process the data (e.g., display in the UI)
             } else {
                 // Data does not exist
@@ -66,6 +68,6 @@ export function readFromFirebase(patientName) {
             console.error("Error reading from database: ", error);
         });
 }
-readFromFirebase("Puskar"); // Replace "JohnDoe" with the actual patient name
+//readFromFirebase("Puskar"); // Replace "JohnDoe" with the actual patient name
 
 
