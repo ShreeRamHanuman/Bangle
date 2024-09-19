@@ -27,7 +27,7 @@ var id =1;
 export function saveToFirebase(patientName, currentTime, temperature) {
   id= id+1;
 // Save patient data to the database
-            set(ref(database, patientName+'/'+currentTime), {
+            set(ref(database, patientName+'/'+id), {
                 patientName: patientName,
                 currentTime: currentTime,
                 temperature: temperature,
@@ -48,9 +48,9 @@ export function saveToFirebase(patientName, currentTime, temperature) {
 }
 
 // Function to read data based on patient name
-export function readFromFirebase(patientName, time) {
+export function readFromFirebase(patientName, id) {
     const database = getDatabase();
-  const path = `${patientName}/${time}`;
+  const path = `${patientName}/${id}`;
     const patientRef = ref(database, patientName);
 
     get(patientRef)
