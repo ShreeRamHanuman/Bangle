@@ -5,7 +5,7 @@
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
   function getTemperature() {
-    UART.eval('E.getTemperature()', function(t) {
+    UART.eval('Bangle.isCharging()', function(t) {
       document.getElementById("result").innerHTML = t;
     });
   }
