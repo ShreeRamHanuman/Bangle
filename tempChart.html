@@ -1,42 +1,42 @@
 <html>
- <head>
-   <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Heart Rate Line Chart</title>
-    
- </head>
- <body>
-   <h2>Real-Time Temperature</h2>
+    <title>Real-Time Temperature Line Chart</title>
+</head>
+<body>
+    <h2>Real-Time Temperature</h2>
     <canvas id="heartRateChart" width="400" height="100"></canvas>
-   
-  <script src="https://www.espruino.com/js/uart.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  const refreshTime = 10000;
-    var t =0;
-  function getTemperature() {
-   var currentTime = new Date().toLocaleTimeString();
-    UART.eval('E.getTemperature()', function(t) {
-      document.getElementById("result").innerHTML =  "Temperature: " + t +  " Current Time: " + currentTime;
-      t=t;
-    });
-  }
-   setInterval(getTemperature, refreshTime); // Refresh every 30 seconds
+    <script src="https://www.espruino.com/js/uart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const refreshTime = 10000;
+        let temperature = 0;
+        let HR = 0;
+        
+        function getTemperature() {
+            const currentTime = new Date().toLocaleTimeString();
+            UART.eval('E.getTemperature()', function(temp) {
+                temperature = temp;
+                document.getElementById("result").innerHTML =  "Temperature: " + temperature + " Current Time: " + currentTime;
+            });
+        }
 
-const ctx = document.getElementById('heartRateChart').getContext('2d');
+        setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
 
-        // Initial time labels for the first few minutes
+        const ctx = document.getElementById('heartRateChart').getContext('2d');
+
+        // Initial time labels
         const labels = [];
         for (let i = 0; i < 2; i++) {
-            let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            labels.push(time);
+            labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
         }
-        const heartRateData = 0;
+        
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Temperature (degree C)',
-                data: heartRateData,
+                label: 'Temperature (°C)',
+                data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
@@ -57,50 +57,39 @@ const ctx = document.getElementById('heartRateChart').getContext('2d');
                     y: {
                         title: {
                             display: true,
-                            text: 'Temperature (degree C)'
+                            text: 'Temperature (°C)'
                         },
-                        min: 50,
-                        max: 130
+                        min: 0,
+                        max: 50
                     }
                 }
             }
         };
 
         const heartRateChart = new Chart(ctx, config);
-        var HR =0;
-        
-        function hr(){
-             HR = Math.floor(Math.random() * (120 - 60 + 1) + 60)
+
+        function hr() {
+            HR = Math.floor(Math.random() * (120 - 60 + 1) + 60);
         }
         setInterval(hr, refreshTime);
-        // Function to add new data every 30 seconds
-        function updateHeartRate() {
-            // Generate new heart rate value
-            const newHeartRate = t;
 
-            // Get the current time
-            let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        function updateTemperatureChart() {
+            const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            heartRateChart.data.labels.push(newTime);
+            heartRateChart.data.datasets[0].data.push(temperature);
 
-            // Add new time label and heart rate data
-            heartRateChart.data.labels.push(currentTime);
-            heartRateChart.data.datasets[0].data.push(newHeartRate);
-
-            // Keep only 60 data points (for one hour)
+            // Keep only 60 data points
             if (heartRateChart.data.labels.length > 120) {
-                heartRateChart.data.labels.shift(); // Remove the oldest time label
-                heartRateChart.data.datasets[0].data.shift(); // Remove the oldest heart rate value
+                heartRateChart.data.labels.shift();
+                heartRateChart.data.datasets[0].data.shift();
             }
 
-            // Update the chart with new data
             heartRateChart.update();
         }
 
-        // Update heart rate every 30 seconds (30000 milliseconds)
-      
-        setInterval(updateHeartRate, refreshTime);
-    
-  </script>
-  <button onclick="getTemperature()">Get Temperature & Time </button>
-  <span id="result"></span>
- </body>
+        setInterval(updateTemperatureChart, refreshTime);
+    </script>
+    <button onclick="getTemperature()">Get Temperature & Time </button>
+    <span id="result"></span>
+</body>
 </html>
