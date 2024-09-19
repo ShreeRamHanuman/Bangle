@@ -6,6 +6,15 @@
 </head>
 <body>
     <h2>Real-Time Temperature</h2>
+    <div class="container">
+        <h2>Enter Patient Detail</h2>
+
+        <form>
+            <label for="patientName">Name of Patient:</label>
+            <input type="text" id="patientName" name="patientName" required>
+            <button type="button" id="start">Enter </button>
+        </form>
+    </div>
     <canvas id="heartRateChart" width="400" height="100"></canvas>
     <script src="https://www.espruino.com/js/uart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
