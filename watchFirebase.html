@@ -34,7 +34,18 @@
                 document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
             });
           saveToFirebase(patientName, currentTime, temperature);
-            readFromFirebase(patientName,id); // Replace "Puskar" with the actual patient name
+           // readFromFirebase(patientName,id); 
+            readFromFirebase(patientName,id)
+    .then((data) => {
+        console.log("Name:", data.name);
+        console.log("Time:", data.time);
+        console.log("Temperature:", data.temperature);
+        // Use data here
+    })
+    .catch((error) => {
+        console.error("Failed to fetch data:", error);
+    });
+// Replace "Puskar" with the actual patient name
         }
 
         setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
