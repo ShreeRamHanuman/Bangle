@@ -1,0 +1,16 @@
+<html>
+ <head>
+ </head>
+ <body>
+  <script src="https://www.espruino.com/js/uart.js"></script>
+  <script>
+  function getTemperature() {
+    UART.eval('E.getTemperature()', function(t) {
+      document.getElementById("result").innerHTML = t;
+    });
+  }
+  </script>
+  <button onclick="getTemperature()">Get Temperature</button>
+  <span id="result"></span>
+ </body>
+</html>
