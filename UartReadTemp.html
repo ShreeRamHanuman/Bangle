@@ -9,8 +9,9 @@
       document.getElementById("result").innerHTML = t;
     });
   }
+   setInterval(getTemperature, 30000); // Refresh every 30 seconds
   </script>
-  <button onclick="getTemperature()">Get Charg</button>
+  <button onclick="getTemperature()">Get Charging</button>
   <span id="result"></span>
  </body>
 </html>
