@@ -40,10 +40,10 @@
             });
             saveToFirebase(patientName, currentTime, temperature);
             // readFromFirebase(patientName,id); 
-            readFromFirebase(patientName, id); // Issue in this code
-            console.log("Patient Data HTML:", patientNameFB);
-                console.log("Time:HTML", currentTimeFB);
-                console.log("Temperature HTML", temperatureFB);
+            let valFire = readFromFirebase(patientName, id); // Issue in this code
+            console.log("Patient Data HTML:", valFire['patientNameFB']);
+                console.log("Time:HTML", valFire['currentTimeFB']);
+                console.log("Temperature HTML", valFire['temperatureFB']);
         }
                  
        
