@@ -41,13 +41,14 @@
             saveToFirebase(patientName, currentTime, temperature);
             // readFromFirebase(patientName,id); 
             readFromFirebase(patientName, id); // Issue in this code
+            console.log("Patient Data HTML:", patientNameFB);
+                console.log("Time:HTML", currentTimeFB);
+                console.log("Temperature HTML", temperatureFB);
         }
                  
        
         setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
-                console.log("Patient Data HTML:", patientNameFB);
-                console.log("Time:HTML", currentTimeFB);
-                console.log("Temperature HTML", temperatureFB);
+                
         const ctx = document.getElementById('heartRateChart').getContext('2d');
 
         // Initial time labels
