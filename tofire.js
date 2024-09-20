@@ -73,7 +73,7 @@ const snapshot = await get(patientRef);
               return null;
             }     
   }
-        catch(error) => {
+        catch(error) {
             console.error("Error reading from database: ", error);
         }
 }
