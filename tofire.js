@@ -47,9 +47,7 @@ export function saveToFirebase(patientName, currentTime, temperature) {
 //window.location.href = 'Patient List.html';
 }
 
-        var patientNameFB = "";
-        var currentTimeFB = "";
-        var temperatureFB = "";
+       
 // Function to read data based on patient name
 export function readFromFirebase(patientName, id) {
     const database = getDatabase();
