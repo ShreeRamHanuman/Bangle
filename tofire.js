@@ -62,10 +62,11 @@ export function readFromFirebase(patientName, id) {
                 console.log("Patient Datajs:", data.patientName);
                 console.log("Time:js", data.currentTime);
                 console.log("Temperature:js", data.temperature);
-
-                patientNameFB = data.patientName;
-                currentTimeFB = data.currentTime;
-                temperatureFB = data.temperature;
+              return {
+                patientNameFB : data.patientName,
+                currentTimeFB : data.currentTime,
+                temperatureFB : data.temperature
+            }
               
             } else {
                 console.log("No data available for this patient.");
