@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 
-console.log("JS File Loaded -- tofire.js 1:15");
+console.log("JS File Loaded -- tofire.js 1:21");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -58,10 +58,13 @@ export function readFromFirebase(patientName, id) {
             if (snapshot.exists()) {
                 // Data exists
                 const data = snapshot.val();
-              console.log("Patient Datajs:", data.patientName);
+                console.log("Patient Datajs:", data.patientName);
                 console.log("Time:js", data.currentTime);
                 console.log("Temperature:js", data.temperature);
-                 })
+            else {
+                console.log("No data available for this patient.");
+            }     
+            })
         .catch((error) => {
             console.error("Error reading from database: ", error);
         });
