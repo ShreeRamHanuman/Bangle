@@ -38,9 +38,6 @@
             saveToFirebase(patientName, currentTime, temperature);
             // readFromFirebase(patientName,id); 
             readFromFirebase("patientName", id); // Issue in this code
-
-
-
         }
 
         setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
