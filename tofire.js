@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 
-console.log("JS File Loaded -- tofire.js 1:25");
+console.log("JS File Loaded -- tofire.js 3:20");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -50,7 +50,8 @@ export function saveToFirebase(patientName, currentTime, temperature) {
        
 // Function to read data based on patient name
 export async function readFromFirebase(patientName, id) {
-    const database = getDatabase();
+  try{  
+  const database = getDatabase();
   const path = `${patientName}/${id}`;
     const patientRef = ref(database, path);
 const snapshot = await get(patientRef);
@@ -71,7 +72,7 @@ const snapshot = await get(patientRef);
                 console.log("No data available for this patient.");
               return null;
             }     
-            
+  }
         catch(error) => {
             console.error("Error reading from database: ", error);
         }
