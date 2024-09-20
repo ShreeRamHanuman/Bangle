@@ -40,10 +40,18 @@
             });
             saveToFirebase(patientName, currentTime, temperature);
             // readFromFirebase(patientName,id); 
-            let valFire = readFromFirebase(patientName, id); // Issue in this code
-            console.log("Patient Data HTML:", valFire['patientNameFB']);
-                console.log("Time:HTML", valFire['currentTimeFB']);
-                console.log("Temperature HTML", valFire['temperatureFB']);
+            readFromFirebase(patientName, id).then((valFire) => {
+    if (valFire) {
+        console.log("Patient Data HTML:", valFire['patientNameFB']);
+        console.log("Time HTML:", valFire['currentTimeFB']);
+        console.log("Temperature HTML:", valFire['temperatureFB']);
+    } else {
+        console.log("No patient data found.");
+    }
+}).catch((error) => {
+    console.error("Error fetching patient data: ", error);
+});
+
         }
                  
        
