@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 
-console.log("JS File Loaded -- tofire.js 1:21");
+console.log("JS File Loaded -- tofire.js 1:25");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
@@ -61,7 +61,7 @@ export function readFromFirebase(patientName, id) {
                 console.log("Patient Datajs:", data.patientName);
                 console.log("Time:js", data.currentTime);
                 console.log("Temperature:js", data.temperature);
-            else {
+            } else {
                 console.log("No data available for this patient.");
             }     
             })
