@@ -47,6 +47,9 @@ export function saveToFirebase(patientName, currentTime, temperature) {
 //window.location.href = 'Patient List.html';
 }
 
+        var patientNameFB = "";
+        var currentTimeFB = "";
+        var temperatureFB = "";
 // Function to read data based on patient name
 export function readFromFirebase(patientName, id) {
     const database = getDatabase();
@@ -61,6 +64,11 @@ export function readFromFirebase(patientName, id) {
                 console.log("Patient Datajs:", data.patientName);
                 console.log("Time:js", data.currentTime);
                 console.log("Temperature:js", data.temperature);
+
+                patientNameFB = data.patientName;
+                currentTimeFB = data.currentTime;
+                temperatureFB = data.temperature;
+              
             } else {
                 console.log("No data available for this patient.");
             }     
