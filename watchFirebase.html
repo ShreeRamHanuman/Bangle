@@ -67,11 +67,7 @@
         const labels = [];
         for (let i = 0; i < 2; i++) {
            // labels.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-            let hours = String(currentTime.getHours()).padStart(2, '0');
-            let minutes = String(currentTime.getMinutes()).padStart(2, '0');
-            let seconds = String(currentTime.getSeconds()).padStart(2, '0');
-            let formattedTime = `${hours}:${minutes}:${seconds}`;
-            labels.push(formattedTime);
+            labels.push(currentTime);
             //currentTimeFB
         }
 
