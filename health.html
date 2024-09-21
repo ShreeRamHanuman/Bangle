@@ -11,7 +11,7 @@
           const { bpm, bpmConfidence, steps, movement } = t
           console.log(JSON.stringify(t))
           document.getElementById("heartResult").innerHTML = bpm;
-
+          document.getElementById("movement").innerHTML = movement;
           document.getElementById("stepResult").innerHTML = steps;
         });
   }
@@ -20,5 +20,6 @@
   <button onclick="getTemperature()">Get Temperature & Time </button>
   <span id="heartResult"></span>
    <span id="stepResult"></span>
+  <span id="movement"></span>
  </body>
 </html>
