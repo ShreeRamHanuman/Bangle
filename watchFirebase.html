@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h2>Real-Time Temperature 8.05</h2>
+    <h2>Real-Time Temperature 8.16</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -36,7 +36,7 @@
             const currentTime = new Date().toLocaleTimeString();
             UART.eval('E.getTemperature()', function (temp) {
                 temperature = (temp * 9 / 5) + 44;
-                document.getElementById("result").innerHTML = "Hi " + patientName + " Your temperature is " + temperature + " as of Current Time: " + currentTime;
+                document.getElementById("result").innerHTML = "Hi " + patientName + " Your temperature is " + temperature + " as of Current Time: " + currentTimeFB;
             });
             saveToFirebase(patientName, currentTime, temperature);
             // readFromFirebase(patientName,id); 
@@ -66,6 +66,7 @@
         const labels = [];
         for (let i = 0; i < 2; i++) {
             labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+            //currentTimeFB
         }
 
         const data = {
