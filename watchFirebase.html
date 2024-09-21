@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h2>Real-Time Temperature 10.7</h2>
+    <h2>Real-Time Temperature 11.7</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -31,7 +31,7 @@
         var currentTimeFB = "";
         var temperatureFB = "";
         var currentTime = "";
-   
+
         function getTemperature() {
             id = id + 1;
             var patientName = document.getElementById("patientName").value;
@@ -42,6 +42,14 @@
             });
             //
             // Need to add code for Heart and other data.
+            UART.eval('Bangle.getHealthStatus()', function (t) {
+                const { bpm, bpmConfidence, steps, movement } = t
+                console.log(JSON.stringify(t))
+                document.getElementById("bpm").innerHTML = "Heart Bpm " + bpm;
+
+                document.getElementById("steps").innerHTML = "Steps " + steps;
+            })
+
             //
             saveToFirebase(patientName, currentTime, temperature); // This function push value to DB
             // readFromFirebase(patientName,id); 
@@ -55,21 +63,21 @@
                     temperatureFB = valFire['temperatureFB'];
                 } else {
                     console.log("No patient data found.");
-                        }
-        }).catch((error) => {
-        console.error("Error fetching patient data: ", error);
+                }
+            }).catch((error) => {
+                console.error("Error fetching patient data: ", error);
             });
-          }
-    setInterval(getTemperature, refreshTime); // Refresh every xx seconds
-                
+        }
+        setInterval(getTemperature, refreshTime); // Refresh every xx seconds
+
         const ctx = document.getElementById('heartRateChart').getContext('2d');
         // Initial time labels
         const labels = [];
         for (let i = 0; i < 2; i++) {
-        labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-           // labels.push(currentTime);
+            labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+            // labels.push(currentTime);
             //currentTimeFB
-       }
+        }
 
         const data = {
             labels: labels,
@@ -113,7 +121,7 @@
 
         const heartRateChart = new Chart(ctx, config);
         function updateTemperatureChart() {
-           // const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            // const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             heartRateChart.data.labels.push(currentTimeFB);
             heartRateChart.data.datasets[0].data.push(temperatureFB);
             heartRateChart.data.datasets[1].data.push(temperatureFB + 5);
@@ -131,6 +139,9 @@
         setInterval(updateTemperatureChart, refreshTime);
     </script>
     <span id="result"> </span>
+    <span id="bpm"> </span>
+    <span id="steps"> </span>
+    <span id="battery"> </span>
 
 </body>
 
