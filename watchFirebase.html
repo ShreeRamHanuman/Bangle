@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h2>Real-Time Temperature 11.7</h2>
+    <h2>Real-Time Temperature 10.14</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -36,11 +36,12 @@
             id = id + 1;
             var patientName = document.getElementById("patientName").value;
             currentTime = new Date().toLocaleTimeString();
-            UART.eval('E.getTemperature()', function (temp) {
-                temperature = (temp * 9 / 5) + 44; /// Bangle shows around 12 less than actual temperature so added 44 instead of 32
-                document.getElementById("result").innerHTML = "Hi " + patientName + " Your temperature is " + temperature + " as of Current Time: " + currentTimeFB;
-            });
+            // UART.eval('E.getTemperature()', function (temp) {
+            //     temperature = (temp * 9 / 5) + 44; /// Bangle shows around 12 less than actual temperature so added 44 instead of 32
+            //     document.getElementById("result").innerHTML = "Hi " + patientName + " Your temperature is " + temperature + " as of Current Time: " + currentTimeFB;
+            // });
             //
+            temperature = (20 * 9 / 5) + 44;
             // Need to add code for Heart and other data.
             UART.eval('Bangle.getHealthStatus()', function (t) {
                 const { bpm, bpmConfidence, steps, movement } = t
