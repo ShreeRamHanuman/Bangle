@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h2>Real-Time Temperature 10.16</h2>
+    <h2>Real-Time Temperature 10.6</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -65,9 +65,9 @@
         const ctx = document.getElementById('heartRateChart').getContext('2d');
         // Initial time labels
         const labels = [];
-        for (let i = 0; i < 2; i++) {
-           // labels.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-            labels.push(currentTime);
+        for (let i = 0; i < 5; i++) {
+        labels.push(newDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+           // labels.push(currentTime);
             //currentTimeFB
         }
 
