@@ -65,11 +65,11 @@
         const ctx = document.getElementById('heartRateChart').getContext('2d');
         // Initial time labels
         const labels = [];
-        //for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
         labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
            // labels.push(currentTime);
             //currentTimeFB
-       // }
+       }
 
         const data = {
             labels: labels,
@@ -88,7 +88,6 @@
                 tension: 0.1
             }]
         };
-
         const config = {
             type: 'line',
             data: data,
