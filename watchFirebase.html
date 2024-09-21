@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h2>Real-Time Temperature 9.56</h2>
+    <h2>Real-Time Temperature 8.05</h2>
     <div class="container">
         <h2>Enter Patient Detail</h2>
 
@@ -45,6 +45,9 @@
         console.log("Patient Data HTML:", valFire['patientNameFB']);
         console.log("Time HTML:", valFire['currentTimeFB']);
         console.log("Temperature HTML:", valFire['temperatureFB']);
+         patientNameFB = valFire['patientNameFB'];
+         currentTimeFB = valFire['currentTimeFB'];
+         temperatureFB = valFire['temperatureFB'];
     } else {
         console.log("No patient data found.");
     }
@@ -108,10 +111,10 @@
 
         const heartRateChart = new Chart(ctx, config);
         function updateTemperatureChart() {
-            const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            heartRateChart.data.labels.push(newTime);
-            heartRateChart.data.datasets[0].data.push(temperature);
-            heartRateChart.data.datasets[1].data.push(temperature + 5);
+           // const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            heartRateChart.data.labels.push(currentTimeFB);
+            heartRateChart.data.datasets[0].data.push(temperatureFB);
+            heartRateChart.data.datasets[1].data.push(temperatureFB + 5);
 
             // Keep only 60 data points
             if (heartRateChart.data.labels.length > 120) {
