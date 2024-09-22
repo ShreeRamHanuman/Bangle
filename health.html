@@ -8,13 +8,19 @@
    UART.eval( 'Bangle.setHRMPower(1)');
   function getHealthHeart() {
    var currentTime = new Date().toLocaleTimeString();
-UART.eval('Bangle.on('HRM')', function(t) {
-      document.getElementById("heartResult").innerHTML = t;
-    }); 
+UART.eval(
+Bangle.on('HRM',function(hrm) {
+  /*hrm is an object containing:
+    { "bpm": number,             // Beats per minute
+      "confidence": number,      // 0-100 percentage confidence in the heart rate
+      "raw": Uint8Array,         // raw samples from heart rate monitor
+   */
+}
+});); 
   }
    setInterval(getHealthHeart, 10000); // Refresh every 10 seconds
   </script>
-  <h1>Health Status : 75</h1>
+  <h1>Health Status : 76</h1>
   <button onclick="getHealthHeart()">Get Temperature & Time </button>
   <span id="heartResult"></span>
    <span id="stepResult"></span>
