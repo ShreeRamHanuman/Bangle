@@ -7,7 +7,7 @@
   
   function getTemperature() {
    var currentTime = new Date().toLocaleTimeString();
-    UART.eval('Bangle.getHealthStatus(10min)', function (t) {
+    UART.eval('Bangle.setHRMPower(1)';'Bangle.getHealthStatus(10min)', function (t) {
           const { bpm, bpmConfidence, steps, movement } = t
           console.log(JSON.stringify(t))
           document.getElementById("heartResult").innerHTML = bpm;
