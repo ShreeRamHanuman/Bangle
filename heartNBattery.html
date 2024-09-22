@@ -17,14 +17,14 @@
     console.log("Current Time: ", currentTime);
 
     // Fetch heart rate using UART.eval
-    UART.eval(`Bangle.on('HRM', function(t) {
+    UART.eval(`Bangle.on('HRM')`, function(t) {
         
         // Return the heart rate data
         return {
             bpm: t.bpm,
             confidence: t.confidence
         };
-    })`, function (result) {
+    }), function (result) {
         try {
             // Parse the result (if it is JSON or object-like)
             var data = result; // UART.eval returns an object in most cases
@@ -47,7 +47,7 @@
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 131</h1>
+  <h1>Health Status 007</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
