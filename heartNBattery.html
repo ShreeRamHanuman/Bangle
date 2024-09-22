@@ -16,7 +16,7 @@
       var currentTime = new Date().toLocaleTimeString();
  console.log("Current Time ", currentTime);
       // Fetch heart rate using UART.eval
-      UART.eval('Bangle.getHealthStatus('last')', function (t) {
+      UART.eval(`Bangle.getHealthStatus('last')`, function (t) {
           const { bpm, bpmConfidence, steps, movement } = t
           console.log(JSON.stringify(t))
           document.getElementById("heartResult").innerHTML = bpm;
