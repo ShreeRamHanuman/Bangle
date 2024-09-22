@@ -17,35 +17,39 @@
     console.log("Current Time: ", currentTime);
 
     // Fetch heart rate using UART.eval
-    UART.eval(`Bangle.on('HRM')`, function (t) {
-        // Check if t is null or undefined before accessing its properties
-        if (t && t.bpm !== undefined && t.confidence !== undefined) {
-            // Ensure t.bpm and t.confidence are not null, if null assign a default value
-            var bpm = t.bpm !== null ? t.bpm : "No Data";
-            var confidence = t.confidence !== null ? t.confidence : "No Confidence";
+    UART.eval(`Bangle.on('HRM', function(t) {
+        // Ensure t.bpm and t.confidence are not null
+        var bpm = t.bpm !== null ? t.bpm : "No Data";
+        var confidence = t.confidence !== null ? t.confidence : "No Confidence";
 
-            // Create an array with heart rate and confidence values
-            var d = [
-                "H",
-                bpm,
-                confidence
-            ];
-            console.log(d);
+        // Return the heart rate data
+        return {
+            bpm: bpm,
+            confidence: confidence
+        };
+    })`, function (result) {
+        try {
+            // Parse the result (if it is JSON or object-like)
+            var data = result; // UART.eval returns an object in most cases
 
-            // Optionally, display the bpm value in an HTML element (if available)
-            document.getElementById("heartResult").innerHTML = bpm;
-        } else {
-            console.error("Heart rate data is not available.");
+            // Log the heart rate and confidence
+            console.log(["H", data.bpm, data.confidence]);
+
+            // Optionally, display the bpm value in an HTML element
+            document.getElementById("heartResult").innerHTML = data.bpm;
+        } catch (err) {
+            console.log("Error processing heart rate data:", err);
         }
     });
 }
+
 
 
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 1d1</h1>
+  <h1>Health Status 131</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
