@@ -7,7 +7,7 @@
   
   function getTemperature() {
    var currentTime = new Date().toLocaleTimeString();
-   UART.eval('Bangle.getHealthStatus()', function (t) {
+   UART.eval('Bangle.setHRMPower(1) Bangle.getHealthStatus()', function (t) {
           const { bpm, bpmConfidence, steps, movement } = t
           console.log(JSON.stringify(t))
   document.getElementById("heartResult").innerHTML = bpm;
@@ -17,7 +17,7 @@
   }
    setInterval(getTemperature, 30000); // Refresh every 30 seconds
   </script>
-  <h1>Health Status : 71</h1>
+  <h1>Health Status : 72</h1>
   <button onclick="getTemperature()">Get Temperature & Time </button>
   <span id="heartResult"></span>
    <span id="stepResult"></span>
