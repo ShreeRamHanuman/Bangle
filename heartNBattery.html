@@ -14,15 +14,15 @@
     function getHealthHeart() {
       // Get current time
       var currentTime = new Date().toLocaleTimeString();
-
+ console.log("Current Time ", currentTime);
       // Fetch heart rate using UART.eval
      
-
+    }
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 08</h1>
+  <h1>Health Status 09</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
