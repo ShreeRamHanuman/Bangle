@@ -7,18 +7,23 @@
   
   function getHealthHeart() {
    var currentTime = new Date().toLocaleTimeString();
-   UART.eval( 'Bangle.setHRMPower(1); \n\x03\x10 Bangle.getHealthStatus()', function (t) {
-          const { bpm, bpmConfidence, steps, movement } = t
-          console.log(JSON.stringify(t))
+   UART.eval( Bangle.setHRMPower(1);
+Bangle.on('HRM',function(hrm) {
+ const { bpm } = hrm
+          console.log(JSON.stringify(hrm))
   document.getElementById("heartResult").innerHTML = bpm;
-  document.getElementById("movement").innerHTML = movement;
-  document.getElementById("stepResult").innerHTML = steps;
-    
-});
+
+  /*hrm is an object containing:
+    { "bpm": number,             // Beats per minute
+      "confidence": number,      // 0-100 percentage confidence in the heart rate
+      "raw": Uint8Array,         // raw samples from heart rate monitor
+   */
+}
+}); 
   }
    setInterval(getHealthHeart, 30000); // Refresh every 30 seconds
   </script>
-  <h1>Health Status : 73</h1>
+  <h1>Health Status : 74</h1>
   <button onclick="getHealthHeart()">Get Temperature & Time </button>
   <span id="heartResult"></span>
    <span id="stepResult"></span>
