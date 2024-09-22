@@ -18,31 +18,19 @@
 
     // Fetch heart rate using UART.eval
     UART.eval(`
-  Bangle.setHRMPower(1)
-  Bangle.on('HRM',function(hrm) {
-    var d = [
-      "H",
-      hrm.bpm,
-      hrm.confidence
-      ];
-    Bluetooth.println(d.join(","));
-  })
-  `), function (d) {
-        try {
-            // Parse the result (if it is JSON or object-like)
-            var data = d; // UART.eval returns an object in most cases
-          console.log("UART ",d);
-
-            // Log the heart rate and confidence
-            console.log(["H", data.bpm, data.confidence]);
-
-            // Optionally, display the bpm value in an HTML element
-            document.getElementById("heartResult").innerHTML = data.bpm;
-        } catch (err) {
-            console.log("Error processing heart rate data:", err);
-        }
+  Bangle.setHRMPower(1);
+  Bangle.on('HRM', function(hrm) {
+    var data = {
+      bpm: hrm.bpm,
+      confidence: hrm.confidence,
+      raw: Array.from(hrm.raw) // Convert Uint8Array to regular array
     };
+    console.log(JSON.stringify(data));
+  });
+`);
+
 }
+
 
 
 
@@ -50,7 +38,7 @@
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 07</h1>
+  <h1>Health Status Puskarkc007</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
