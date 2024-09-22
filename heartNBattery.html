@@ -16,15 +16,12 @@
       var currentTime = new Date().toLocaleTimeString();
 
       // Fetch heart rate using UART.eval
-     UART.eval(`
-    Bangle.getHealthStatus('last').bpm;
-  `, function(result) {
-    if (result) {
-      document.getElementById('heartResult').innerHTML = "Heart Rate: " + result + " BPM";
-    } else {
-      document.getElementById('heartResult').innerHTML = "Heart Rate: Not Available";
-    }
-  });
+     UART.eval('Bangle.getHealthStatus()', function (t) {
+          const { bpm, bpmConfidence, steps, movement } = t
+          console.log(JSON.stringify(t))
+          document.getElementById("heartResult").innerHTML = bpm;
+
+          document.getElementById("stepResult").innerHTML = steps;
 
     }
 
