@@ -5,44 +5,36 @@
 <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
+    
     // Enable the heart rate sensor on Bangle.js
     UART.eval('Bangle.setHRMPower(1)', function(result) {
       console.log("Heart rate monitor powered on:", result);
     });
 
     function getHealthHeart() {
-      // Get the current time
+      // Get current time
       var currentTime = new Date().toLocaleTimeString();
 
-      // Fetch battery status
-      UART.eval('E.getBattery()', function (t) {
-        document.getElementById("batresult").innerHTML = "Battery: " + t + "%";
-      });
-
-      // Fetch heart rate using UART.eval and display it
+      // Fetch heart rate using UART.eval
       UART.eval(`
         Bangle.on('HRM', function(hrm) {
-          return JSON.stringify(hrm);
+          const { bpm, confidence, raw } = hrm
+       console.log(hrm.bpm);
         });
       `, function(result) {
-        if (result) {
-          var hrmData = JSON.parse(result);
-          document.getElementById('heartResult').innerHTML = "Heart Rate: " + hrmData.bpm + " BPM, Confidence: " + hrmData.confidence + "%";
-        } else {
-          document.getElementById('heartResult').innerHTML = "Heart Rate: Not Available";
-        }
+        // Display result on the webpage
+        document.getElementById('heartResult').innerHTML = "Heart Rate: " + result ;
       });
     }
 
-    // Fetch heart rate and battery status every 10 seconds
+    // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status</h1>
+  <h1>Health Status 27</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
-  Heart Rate: <span id="heartResult">Heart Rate: Not yet retrieved</span>
-  <br><br>
-  Battery: <span id="batresult">Battery: Not yet retrieved</span>
+ Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
+
 </body>
 </html>
