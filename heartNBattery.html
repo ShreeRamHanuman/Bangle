@@ -16,18 +16,13 @@
       var currentTime = new Date().toLocaleTimeString();
 
       // Fetch heart rate using UART.eval
-     UART.eval('Bangle.getHealthStatus()', function (t) {
-          const { bpm, bpmConfidence, steps, movement } = t
-          console.log(JSON.stringify(t));
-          document.getElementById("heartResult").innerHTML = bpm;
-          document.getElementById("stepResult").innerHTML = steps;
-    });
+     
 
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 28</h1>
+  <h1>Health Status 08</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
