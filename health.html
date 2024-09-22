@@ -15,13 +15,13 @@
       var currentTime = new Date().toLocaleTimeString();
 
       // Fetch heart rate using UART.eval
-      UART.eval('
+      UART.eval(`
         Bangle.on('HRM', function(hrm) {
           if (hrm.confidence > 50) {
             print(hrm.bpm); // Print only if confidence is high enough
           }
         });
-      ', function(result) {
+      `, function(result) {
         // Display result on the webpage
         document.getElementById('heartResult').innerHTML = "Heart Rate: " + result + " bpm";
       });
