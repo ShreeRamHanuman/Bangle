@@ -18,7 +18,7 @@
       // Fetch heart rate using UART.eval
      UART.eval('Bangle.getHealthStatus()', function (t) {
           const { bpm, bpmConfidence, steps, movement } = t
-          console.log(JSON.stringify(t))
+          console.log(JSON.stringify(t));
           document.getElementById("heartResult").innerHTML = bpm;
           document.getElementById("stepResult").innerHTML = steps;
     });
@@ -27,7 +27,7 @@
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 27</h1>
+  <h1>Health Status 28</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
