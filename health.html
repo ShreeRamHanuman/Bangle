@@ -16,12 +16,12 @@
       // Get current time
       var currentTime = new Date().toLocaleTimeString();
 UART.eval('E.getBattery()', function (t) {
-        document.getElementById("batresult").innerHTML = t;
+        document.getElementById("batresult").innerHTML = "Battery "+t;
       });
       // Fetch heart rate using UART.eval
       UART.eval(`
         Bangle.on('HRM', function(hrm) {
-          const { bpm, bpmConfidence, steps, movement } = hrm
+          const { bpm, confidence, raw } = hrm
        console.log(JSON.stringify(hrm))
         });
       `, function(result) {
