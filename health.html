@@ -8,7 +8,6 @@
   function getTemperature() {
    var currentTime = new Date().toLocaleTimeString();
    UART.eval('
-  Bangle.setHRMPower(1);
   Bangle.getHealthStatus();', function (t) {
   const { bpm, bpmConfidence, steps, movement } = t;
   console.log(JSON.stringify(t));
