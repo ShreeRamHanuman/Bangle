@@ -1,29 +1,39 @@
 <html>
- <head>
- </head>
- <body>
+<head>
+  <title>Heart Rate from Bangle.js</title>
+</head>
+<body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
+    // Enable the heart rate sensor on Bangle.js
+    UART.eval('Bangle.setHRMPower(1)', function(result) {
+      console.log("Heart rate monitor powered on:", result);
+    });
 
-   UART.eval( 'Bangle.setHRMPower(1)');
-  function getHealthHeart() {
-   var currentTime = new Date().toLocaleTimeString();
-UART.eval(
-Bangle.on('HRM',function(hrm) {
-  /*hrm is an object containing:
-    { "bpm": number,             // Beats per minute
-      "confidence": number,      // 0-100 percentage confidence in the heart rate
-      "raw": Uint8Array,         // raw samples from heart rate monitor
-   */
-}
-});); 
-  }
-   setInterval(getHealthHeart, 10000); // Refresh every 10 seconds
+    function getHealthHeart() {
+      // Get current time
+      var currentTime = new Date().toLocaleTimeString();
+
+      // Fetch heart rate using UART.eval
+      UART.eval(`
+        Bangle.on('HRM', function(hrm) {
+          if (hrm.confidence > 50) {
+            print(hrm.bpm); // Print only if confidence is high enough
+          }
+        });
+      `, function(result) {
+        // Display result on the webpage
+        document.getElementById('heartResult').innerHTML = "Heart Rate: " + result + " bpm";
+      });
+    }
+
+    // Fetch heart rate every 10 seconds
+    setInterval(getHealthHeart, 10000);
   </script>
-  <h1>Health Status : 76</h1>
-  <button onclick="getHealthHeart()">Get Temperature & Time </button>
-  <span id="heartResult"></span>
-   <span id="stepResult"></span>
-  <span id="movement"></span>
- </body>
+
+  <h1>Health Status 1</h1>
+  <button onclick="getHealthHeart()">Get Heart Rate</button>
+  <br><br>
+  <span id="heartResult">Heart Rate: Not yet retrieved</span>
+</body>
 </html>
