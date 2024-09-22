@@ -17,9 +17,9 @@
  console.log("Current Time ", currentTime);
       // Fetch heart rate using UART.eval
       UART.eval(`Bangle.on('HRM')`, function (t) {
-          const { bpm, confidence, raw } = t
-          console.log(JSON.stringify(t))
-          document.getElementById("heartResult").innerHTML = bpm;
+         // const { bpm, confidence, raw } = t
+          console.log(t)
+         // document.getElementById("heartResult").innerHTML = bpm;
         });
      
     }
