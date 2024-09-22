@@ -11,35 +11,41 @@
       console.log("Heart rate monitor powered on:", result);
     });
 
-    function getHealthHeart() {
+   function getHealthHeart() {
     // Get current time
     var currentTime = new Date().toLocaleTimeString();
     console.log("Current Time: ", currentTime);
 
     // Fetch heart rate using UART.eval
     UART.eval(`Bangle.on('HRM')`, function (t) {
-        // Ensure t.bpm and t.confidence are not null, if null assign a default value
-        var bpm = t.bpm !== null ? t.bpm : "No Data";
-        var confidence = t.confidence !== null ? t.confidence : "No Confidence";
+        // Check if t is null or undefined before accessing its properties
+        if (t && t.bpm !== undefined && t.confidence !== undefined) {
+            // Ensure t.bpm and t.confidence are not null, if null assign a default value
+            var bpm = t.bpm !== null ? t.bpm : "No Data";
+            var confidence = t.confidence !== null ? t.confidence : "No Confidence";
 
-        // Create an array with heart rate and confidence values
-        var d = [
-            "H",
-            bpm,
-            confidence
-        ];
-        console.log(d);
+            // Create an array with heart rate and confidence values
+            var d = [
+                "H",
+                bpm,
+                confidence
+            ];
+            console.log(d);
 
-        // Optionally, display the bpm value in an HTML element (if available)
-        document.getElementById("heartResult").innerHTML = bpm;
+            // Optionally, display the bpm value in an HTML element (if available)
+            document.getElementById("heartResult").innerHTML = bpm;
+        } else {
+            console.error("Heart rate data is not available.");
+        }
     });
 }
+
 
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 10d1</h1>
+  <h1>Health Status 1d1</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
