@@ -5,6 +5,8 @@
 <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
+
+    
     // Enable the heart rate sensor on Bangle.js
     UART.eval('Bangle.setHRMPower(1)', function(result) {
       console.log("Heart rate monitor powered on:", result);
@@ -13,7 +15,9 @@
     function getHealthHeart() {
       // Get current time
       var currentTime = new Date().toLocaleTimeString();
-
+UART.eval('E.getBattery()', function (t) {
+        document.getElementById("batresult").innerHTML = t;
+      });
       // Fetch heart rate using UART.eval
       UART.eval(`
         Bangle.on('HRM', function(hrm) {
@@ -31,9 +35,10 @@
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 2</h1>
+  <h1>Health Status 26</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
   <span id="heartResult">Heart Rate: Not yet retrieved</span>
+   <span id="batresult">Heart Rate: Not yet retrieved</span>
 </body>
 </html>
