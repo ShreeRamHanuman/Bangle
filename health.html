@@ -26,7 +26,7 @@ UART.eval('E.getBattery()', function (t) {
         });
       `, function(result) {
         // Display result on the webpage
-        document.getElementById('heartResult').innerHTML = "Heart Rate: " + result + " bpm";
+        document.getElementById('heartResult').innerHTML = "Heart Rate: " + result ;
       });
     }
 
@@ -37,7 +37,8 @@ UART.eval('E.getBattery()', function (t) {
   <h1>Health Status 27</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
-  <span id="heartResult">Heart Rate: Not yet retrieved</span>
-   <span id="batresult">Heart Rate: Not yet retrieved</span>
+ Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
+</br>
+   Battery:  <span id="batresult">Battery: Not yet retrieved</span>
 </body>
 </html>
