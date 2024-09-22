@@ -17,14 +17,11 @@
 
       // Fetch heart rate using UART.eval
       UART.eval(`
-        Bangle.on('HRM', function(hrm) {
-          const { bpm, confidence, raw } = hrm
-       console.log(hrm.bpm);
-        });
-      `, function(result) {
-        // Display result on the webpage
-        document.getElementById('heartResult').innerHTML = "Heart Rate: " + result ;
-      });
+  Bangle.on('HRM', function(hrm) {
+    console.log(hrm.bpm);
+  });
+`);
+
     }
 
     // Fetch heart rate every 10 seconds
