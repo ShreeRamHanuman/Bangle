@@ -5,17 +5,18 @@
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
   
-  function getTemperature() {
+  function getHealthHeart() {
    var currentTime = new Date().toLocaleTimeString();
-   UART.eval('Bangle.setHRMPower(1); Bangle.getHealthStatus()', function (t) {
+   UART.eval( 'Bangle.setHRMPower(1); \n\x03\x10 Bangle.getHealthStatus()', function (t) {
           const { bpm, bpmConfidence, steps, movement } = t
           console.log(JSON.stringify(t))
   document.getElementById("heartResult").innerHTML = bpm;
   document.getElementById("movement").innerHTML = movement;
   document.getElementById("stepResult").innerHTML = steps;
+    
 });
   }
-   setInterval(getTemperature, 30000); // Refresh every 30 seconds
+   setInterval(getHealthHeart, 30000); // Refresh every 30 seconds
   </script>
   <h1>Health Status : 73</h1>
   <button onclick="getTemperature()">Get Temperature & Time </button>
