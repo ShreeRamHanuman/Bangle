@@ -18,19 +18,17 @@
 
     // Fetch heart rate using UART.eval
     UART.eval(`Bangle.on('HRM', function(t) {
-        // Ensure t.bpm and t.confidence are not null
-        var bpm = t.bpm !== null ? t.bpm : "No Data";
-        var confidence = t.confidence !== null ? t.confidence : "No Confidence";
-
+        
         // Return the heart rate data
         return {
-            bpm: bpm,
-            confidence: confidence
+            bpm: t.bpm,
+            confidence: t.confidence
         };
     })`, function (result) {
         try {
             // Parse the result (if it is JSON or object-like)
             var data = result; // UART.eval returns an object in most cases
+          console.log("UART ",result);
 
             // Log the heart rate and confidence
             console.log(["H", data.bpm, data.confidence]);
