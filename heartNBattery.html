@@ -18,7 +18,12 @@
       // Fetch heart rate using UART.eval
       UART.eval(`Bangle.on('HRM')`, function (t) {
          // const { bpm, confidence, raw } = t
-          console.log(t)
+        var d = [
+      "H",
+      t.bpm,
+      t.confidence
+      ];
+          console.log(d)
          // document.getElementById("heartResult").innerHTML = bpm;
         });
      
