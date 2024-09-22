@@ -20,10 +20,8 @@
           const { bpm, bpmConfidence, steps, movement } = t
           console.log(JSON.stringify(t))
           document.getElementById("heartResult").innerHTML = bpm;
-
           document.getElementById("stepResult").innerHTML = steps;
-
-    }
+    });
 
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 10000);
