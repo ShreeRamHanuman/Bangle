@@ -14,9 +14,9 @@
     function getHealthHeart() {
   
       // Fetch heart rate using UART.eval
-      Bangle.on('gesture', function(xyz) {
+     UART.eval( Bangle.on('gesture', function(xyz) {
     console.log(xyz);
-});
+});)
      
     }
     // Fetch heart rate every 10 seconds
