@@ -9,11 +9,12 @@
       console.log("Heart rate monitor powered on:", result);
     });
 
-    function getHealthHeart() {}
+    function getHealthHeart() {
       UART.eval(`Bangle.on('HRM'), function(hrm){
                  const bpm = hrm.bpm;
         console.log("Heart Rate (BPM):", bpm);
     }`);
+    }
     
 
 
