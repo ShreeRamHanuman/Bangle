@@ -11,7 +11,7 @@
 
     function getHealthHeart() {}
       UART.write("Bangle.on('HRM')", function(d){
-                 echo(0);
+                 console.log(JSON.stringify(d))
     });
 
 
