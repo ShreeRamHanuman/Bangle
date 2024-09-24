@@ -9,7 +9,7 @@
 
     function getHealthHeart() {
       UART.eval('Bangle.setHRMPower(1)', function(result1) {
-      console.log("Heart rate monitor powered on:", result);
+      console.log("Heart rate monitor powered on:", result1);
     });
   UART.eval(` Bangle.on('HRM', function(hrm) {
   const bpm = hrm.bpm;
