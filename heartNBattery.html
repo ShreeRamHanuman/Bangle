@@ -15,18 +15,22 @@
     // Get current time
     var currentTime = new Date().toLocaleTimeString();
     console.log("Current Time: ", currentTime);
-  var BANGLE_CODE = `
-  Bangle.setHRMPower(1)
-  Bangle.on('HRM',function(hrm) {
-    var d = [
-      "H",
-      hrm.bpm,
-      hrm.confidence
-      ];
-    Bluetooth.println(d.join(","));
-  })
-  `;
-    console.log( connection.write("\x03\x10if(1){"+BANGLE_CODE+"}\n");
+// Define the Bangle.js code to collect HRM data
+var BANGLE_CODE = `
+Bangle.setHRMPower(1);  // Turn on the Heart Rate Monitor
+Bangle.on('HRM', function(hrm) {  // Listen for HRM events
+  var d = [
+    "H",            // Identifier for heart rate data
+    hrm.bpm,        // Beats per minute
+    hrm.confidence  // Confidence in the reading
+  ];
+  Bluetooth.println(d.join(","));  // Send the data via Bluetooth
+});
+`;
+
+// Send the code to the device via Bluetooth
+console.log(connection.write("\x03\x10if(1){" + BANGLE_CODE + "}\n"));
+
     
 
 }
@@ -38,7 +42,7 @@
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status 007</h1>
+  <h1> 007</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
