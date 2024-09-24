@@ -17,10 +17,10 @@
  console.log("Current Time ", currentTime);
       // Fetch heart rate using UART.eval
       UART.eval(`Bangle.on('gesture')`, function (xyz) {
-        if (xyz !== null ) {
+        
           console.log(xyz)
-          document.getElementById("heartResult").innerHTML = bpm;
-        } else{console.log("Value audai cha.....");}
+         
+      
         });
      
     }
