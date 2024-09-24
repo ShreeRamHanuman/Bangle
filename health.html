@@ -10,9 +10,8 @@
     });
 
     function getHealthHeart() {}
-      UART.write(`Bangle.on('HRM')`, function(d){
-                 console.log(JSON.stringify(d))
-    });
+    
+    
 
 
     setInterval(getHealthHeart, 1000);
