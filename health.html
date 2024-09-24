@@ -14,7 +14,7 @@ var  bpm = 0;
     var confidence = 0;
     function getHealthHeart() {
   // Turn on the heart rate monitor
-  Bangle.setHRMPower(1, function() {
+UART.eval(`  Bangle.setHRMPower(1, function() {
     console.log("Heart Rate Monitor powered on.");
     
     // Register an event listener for heart rate data
@@ -40,7 +40,7 @@ var  bpm = 0;
         console.log("No heart rate data received.");
       }
     });
-  });
+  });`)
 }
 
 // Call the function to start monitoring heart rate
