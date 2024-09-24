@@ -10,17 +10,18 @@
     UART.eval('Bangle.setHRMPower(1)', function(result) {
       console.log("Heart rate monitor powered on:", result);
     });
-
+var  bpm = 0;
+    var confidence = 0;
     function getHealthHeart() {
   
       // Fetch heart rate using UART.eval
      UART.eval(`Bangle.on('HRM')`, function(heartRateData) {
      const parsedData = JSON.parse(heartRateData);
-     const bpm = parsedData.bpm;
+      bpm = parsedData.bpm;
 console.log("Heart Rate (BPM):", bpm);
 
 // Access the confidence level
-const confidence = parsedData.confidence;
+ confidence = parsedData.confidence;
 console.log("Confidence:", confidence, "%");
 
 // Convert the raw Uint8Array data into an array
