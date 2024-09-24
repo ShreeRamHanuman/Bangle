@@ -13,21 +13,39 @@
 var  bpm = 0;
     var confidence = 0;
     function getHealthHeart() {
-  
-      // Fetch heart rate using UART.eval
-     UART.eval(`Bangle.on('HRM')`, function(heartRateData) {
-     const parsedData = JSON.parse(heartRateData);
-      bpm = parsedData.bpm;
-console.log("Heart Rate (BPM):", bpm);
+  // Turn on the heart rate monitor
+  Bangle.setHRMPower(1, function() {
+    console.log("Heart Rate Monitor powered on.");
+    
+    // Register an event listener for heart rate data
+    Bangle.on('HRM', function(hrm) {
+      // Check if hrm data is valid
+      if (hrm) {
+        // Access the BPM (Beats per minute)
+        const bpm = hrm.bpm;
+        console.log("Heart Rate (BPM):", bpm);
 
-// Access the confidence level
- confidence = parsedData.confidence;
-console.log("Confidence:", confidence, "%");
+        // Access the confidence level
+        const confidence = hrm.confidence;
+        console.log("Confidence:", confidence, "%");
 
-// Convert the raw Uint8Array data into an array
-const rawSamples = new Uint8Array(parsedData.raw);
-console.log("Raw Samples (Uint8Array):", rawSamples);
-     });}
+        // Convert the raw Uint8Array data into an array
+        const rawSamples = new Uint8Array(hrm.raw);
+        console.log("Raw Samples (Uint8Array):", rawSamples);
+
+        // Optionally, convert the raw Uint8Array to a regular array
+        const rawArray = Array.from(rawSamples);
+        console.log("Raw Samples (Array):", rawArray);
+      } else {
+        console.log("No heart rate data received.");
+      }
+    });
+  });
+}
+
+// Call the function to start monitoring heart rate
+//getHealthHeart();
+
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 1000);
   </script>
