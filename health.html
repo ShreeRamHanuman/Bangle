@@ -10,8 +10,8 @@
     });
 
     function getHealthHeart() {
-      UART.eval(`Bangle.on(\'HRM\'), function(hrm){
-                 const bpm = hrm.bpm;
+     UART.eval(`Bangle.on('HRM', function(hrm) {
+  const bpm = hrm.bpm;
   const confidence = hrm.confidence;
   const raw = hrm.raw;
 
@@ -19,7 +19,7 @@
   console.log("Heart Rate (BPM):", bpm);
   console.log("Confidence:", confidence);
   console.log("Raw Data:", raw);
-    }`);
+});`);
     }
     
 
