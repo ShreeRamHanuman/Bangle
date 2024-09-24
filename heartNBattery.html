@@ -15,19 +15,19 @@
     // Get current time
     var currentTime = new Date().toLocaleTimeString();
     console.log("Current Time: ", currentTime);
-
-    // Fetch heart rate using UART.eval
-    UART.eval(`
-  Bangle.setHRMPower(1);
-  Bangle.on('HRM', function(hrm) {
-    var data = {
-      bpm: hrm.bpm,
-      confidence: hrm.confidence,
-      raw: Array.from(hrm.raw) // Convert Uint8Array to regular array
-    };
-    console.log(JSON.stringify(data));
-  });
-`);
+  var BANGLE_CODE = `
+  Bangle.setHRMPower(1)
+  Bangle.on('HRM',function(hrm) {
+    var d = [
+      "H",
+      hrm.bpm,
+      hrm.confidence
+      ];
+    Bluetooth.println(d.join(","));
+  })
+  `;
+    console.log( UART.eval(BANGLE_CODE););
+    
 
 }
 
