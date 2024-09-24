@@ -12,7 +12,7 @@
     function getHealthHeart() {}
       UART.write("Bangle.on('HRM')", function(d){
                  echo(0);
-    }
+    });
 
 
     setInterval(getHealthHeart, 1000);
