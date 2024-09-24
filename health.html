@@ -11,7 +11,8 @@
 
     function getHealthHeart() {}
       UART.eval(`Bangle.on('HRM'), function(hell){
-                 console.log(hell);
+                 const bpm = hrm.bpm;
+        console.log("Heart Rate (BPM):", bpm);
     }`);
     
 
