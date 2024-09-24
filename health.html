@@ -14,14 +14,19 @@
     function getHealthHeart() {
   
       // Fetch heart rate using UART.eval
-     UART.eval(`Bangle.on('HRM')`,
-  function(result) {
-    console.log('Eval result:', result);
-  }
-);
+     UART.eval(`Bangle.on('HRM')`, function(heartRateData) {
+     const parsedData = JSON.parse(heartRateData);
+     const bpm = parsedData.bpm;
+console.log("Heart Rate (BPM):", bpm);
 
-     
-    }
+// Access the confidence level
+const confidence = parsedData.confidence;
+console.log("Confidence:", confidence, "%");
+
+// Convert the raw Uint8Array data into an array
+const rawSamples = new Uint8Array(parsedData.raw);
+console.log("Raw Samples (Uint8Array):", rawSamples);
+     });}
     // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 1000);
   </script>
