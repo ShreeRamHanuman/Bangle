@@ -14,7 +14,7 @@
     function getHealthHeart() {
   
       // Fetch heart rate using UART.eval
-     UART.eval(`Bangle.getAccel()`,
+     UART.eval(`Bangle.on('HRM')`,
   function(result) {
     console.log('Eval result:', result);
   }
