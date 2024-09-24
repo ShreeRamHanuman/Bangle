@@ -26,7 +26,7 @@
     Bluetooth.println(d.join(","));
   })
   `;
-    console.log( UART.eval(BANGLE_CODE););
+    console.log( connection.write("\x03\x10if(1){"+BANGLE_CODE+"}\n");
     
 
 }
@@ -38,7 +38,7 @@
     setInterval(getHealthHeart, 10000);
   </script>
 
-  <h1>Health Status Puskarkc007</h1>
+  <h1>Health Status 007</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
  Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
