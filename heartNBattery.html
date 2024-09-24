@@ -29,7 +29,7 @@ Bangle.on('HRM', function(hrm) {  // Listen for HRM events
 `;
 
 // Send the code to the device via Bluetooth
-console.log(connection.write("\x03\x10if(1){" + BANGLE_CODE + "}\n"));
+console.log(uart.eval("\x03\x10if(1){" + BANGLE_CODE + "}\n"));
 
     
 
