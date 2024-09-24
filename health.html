@@ -5,55 +5,19 @@
 <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
-    
-    // Enable the heart rate sensor on Bangle.js
     UART.eval('Bangle.setHRMPower(1)', function(result) {
       console.log("Heart rate monitor powered on:", result);
     });
-var  bpm = 0;
-    var confidence = 0;
+
     function getHealthHeart() {
-  // Turn on the heart rate monitor
-UART.eval(`  Bangle.setHRMPower(1, function() {
-    console.log("Heart Rate Monitor powered on.");
-    
-    // Register an event listener for heart rate data
-    Bangle.on('HRM', function(hrm) {
-      // Check if hrm data is valid
-      if (hrm) {
-        // Access the BPM (Beats per minute)
-        const bpm = hrm.bpm;
-        console.log("Heart Rate (BPM):", bpm);
+      UART.write("Bangle.on('HRM'), function(d){
+                 echo(d);
+            }
 
-        // Access the confidence level
-        const confidence = hrm.confidence;
-        console.log("Confidence:", confidence, "%");
 
-        // Convert the raw Uint8Array data into an array
-        const rawSamples = new Uint8Array(hrm.raw);
-        console.log("Raw Samples (Uint8Array):", rawSamples);
-
-        // Optionally, convert the raw Uint8Array to a regular array
-        const rawArray = Array.from(rawSamples);
-        console.log("Raw Samples (Array):", rawArray);
-      } else {
-        console.log("No heart rate data received.");
-      }
-    });
-  });`)
-}
-
-// Call the function to start monitoring heart rate
-//getHealthHeart();
-
-    // Fetch heart rate every 10 seconds
     setInterval(getHealthHeart, 1000);
   </script>
 
-  <h1>Health Status 109</h1>
-  <button onclick="getHealthHeart()">Get Heart Rate</button>
-  <br><br>
-
-
+  <h1>Health Status 109</h1><button onclick="getHealthHeart()">Get Heart Rate</button>
 </body>
 </html>
