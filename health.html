@@ -12,16 +12,11 @@
     });
 
     function getHealthHeart() {
-      // Get current time
-      var currentTime = new Date().toLocaleTimeString();
- console.log("Current Time ", currentTime);
+  
       // Fetch heart rate using UART.eval
-      UART.eval(`Bangle.on('gesture')`, function (xyz) {
-        
-          console.log(xyz);
-         
-      
-        });
+      Bangle.on('gesture', function(xyz) {
+    console.log(xyz);
+});
      
     }
     // Fetch heart rate every 10 seconds
@@ -31,7 +26,7 @@
   <h1>Health Status 109</h1>
   <button onclick="getHealthHeart()">Get Heart Rate</button>
   <br><br>
- Heart Rate:   <span id="heartResult">Heart Rate: Not yet retrieved</span>
+
 
 </body>
 </html>
