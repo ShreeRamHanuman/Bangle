@@ -12,7 +12,13 @@
     function getHealthHeart() {
       UART.eval(`Bangle.on('HRM'), function(hrm){
                  const bpm = hrm.bpm;
-        console.log("Heart Rate (BPM):", bpm);
+  const confidence = hrm.confidence;
+  const raw = hrm.raw;
+
+  // Process the heart rate data as needed
+  console.log("Heart Rate (BPM):", bpm);
+  console.log("Confidence:", confidence);
+  console.log("Raw Data:", raw);
     }`);
     }
     
