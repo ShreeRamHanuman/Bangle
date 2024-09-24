@@ -16,21 +16,9 @@
     var currentTime = new Date().toLocaleTimeString();
     console.log("Current Time: ", currentTime);
 // Define the Bangle.js code to collect HRM data
-var BANGLE_CODE = `
-Bangle.setHRMPower(1);  // Turn on the Heart Rate Monitor
-Bangle.on('HRM', function(hrm) {  // Listen for HRM events
-  var d = [
-    "H",            // Identifier for heart rate data
-    hrm.bpm,        // Beats per minute
-    hrm.confidence  // Confidence in the reading
-  ];
-  Bluetooth.println(d.join(","));  // Send the data via Bluetooth
-});
-`;
-
-// Send the code to the device via Bluetooth
-console.log(UART.eval("\x03\x10if(1){" + BANGLE_CODE + "}\n"));
-
+UART.eval(`Bangle.getHealthStatus('HRM')`, function (t) {
+          const { bpm, confidence } = t
+          console.log(JSON.stringify(t))
     
 
 }
