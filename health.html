@@ -16,7 +16,7 @@
       // Fetch heart rate using UART.eval
      UART.eval(
   `Bangle.on('gesture', function(xyz) {
-    console.log(xyz);
+    xyz
   });`,
   function(result) {
     console.log('Eval result:', result);
