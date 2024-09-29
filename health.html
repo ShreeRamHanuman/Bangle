@@ -20,6 +20,7 @@
     var currentConfidence = null;
 
     var BANGLE_CODE = `
+      var temp = E.getTemperature(); temp = 'T'+temp; console.log(temp);
       Bangle.setHRMPower(1);
       Bangle.on('HRM', function(hrm) {
         var d = [
