@@ -1,64 +1,87 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Heart Rate from Bangle.js</title>
 </head>
 <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
   <script>
     
-var currentBPM = null;
-var currentConfidence = null;
+    var currentBPM = null;
+    var currentConfidence = null;
 
-     var BANGLE_CODE = `
-  Bangle.setHRMPower(1)
-  Bangle.on('HRM',function(hrm) {
-    var d = [
-      "H",
-      hrm.bpm,
-      hrm.confidence
-      ];
-    Bluetooth.println(d.join(","));
-  })
-  `;
-var connection;
-  document.getElementById("btnConnect").addEventListener("click", function() {
-    // disconnect if connected already
-    if (connection) {
-      connection.close();
-      connection = undefined;
-    }
-    // Connect
-    UART.eval(function(c) {
-      if (!c) {
-        alert("Couldn't connect!");
-        return;
-      }
-      connection = c;
-      // Handle the data we get back, and call 'onLine'
-      // whenever we get a line
-      var buf = "";
-      connection.on("data", function(d) {
-        buf += d;
-        var l = buf.split("\n");
-        buf = l.pop();
-        l.forEach(onLine);
+    var BANGLE_CODE = `
+      Bangle.setHRMPower(1);
+      Bangle.on('HRM', function(hrm) {
+        var d = [
+          "H",
+          hrm.bpm,
+          hrm.confidence
+        ];
+        Bluetooth.println(d.join(","));
       });
-      // First, reset the Bangle
-      connection.write("reset();\n", function() {
-        // Wait for it to reset itself
-        setTimeout(function() {
-          // Now upload our code to it
-          UART.write("\x03\x10if(1){"+BANGLE_CODE+"}\n",
-            function() { console.log("Ready..."); });
-        }, 1500);
+    `;
+
+    var connection;
+    
+    document.getElementById("btnConnect").addEventListener("click", function() {
+      // disconnect if connected already
+      if (connection) {
+        connection.close();
+        connection = undefined;
+      }
+      
+      // Connect
+      UART.eval(function(c) {
+        if (!c) {
+          alert("Couldn't connect!");
+          return;
+        }
+        connection = c;
+
+        // Handle incoming data
+        var buf = "";
+        connection.on("data", function(d) {
+          buf += d;
+          var lines = buf.split("\n");
+          buf = lines.pop(); // Keep the last incomplete line in buffer
+          lines.forEach(onLine); // Process each complete line
+        });
+
+        // First, reset the Bangle
+        connection.write("reset();\n", function() {
+          // Wait for it to reset
+          setTimeout(function() {
+            // Now upload our code to monitor heart rate
+            connection.write("\x03\x10if(1){" + BANGLE_CODE + "}\n",
+              function() { console.log("Ready to monitor heart rate."); });
+          }, 1500);
+        });
       });
     });
-  });
 
+    // Function to process each line of heart rate data
+    function onLine(line) {
+      console.log("Received: " + line);
+      var parts = line.split(",");
+      if (parts[0] === "H") {
+        currentBPM = parts[1];
+        currentConfidence = parts[2];
+        document.getElementById("heartRateDisplay").textContent = 
+          "Heart Rate: " + currentBPM + " BPM, Confidence: " + currentConfidence;
+      }
+    }
 
   </script>
-  button connect
- <button id="btnConnect">Connect</button>
-  <h1>Health Status 109</h1><button onclick="getHealthHeart()">Get Heart Rate</button>
+
+  <!-- Connect Button -->
+  <button id="btnConnect">Connect</button>
+
+  <!-- Heart Rate Display -->
+  <h1>Heart Rate Data</h1>
+  <p id="heartRateDisplay">Waiting for data...</p>
+
 </body>
 </html>
