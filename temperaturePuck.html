@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Temperature Line Chart</title>
+</head>
+<body>
+    <h2>Real-Time Temperature</h2>
+    <div class="container">
+        <h2>Enter Patient Detail</h2>
+
+        <form>
+            <label for="patientName">Name of Patient:</label>
+            <input type="text" id="patientName" name="patientName" required>
+            <button type="button" onclick="getTemperature();" id="start">Enter </button>
+        </form>
+    </div>
+    <canvas id="heartRateChart" width="400" height="100"></canvas>
+    <script src="https://www.espruino.com/js/uart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        console.log("first console loaded-- by Puskar");
+        const refreshTime = 10000;
+        let temperature = 0;
+        let HR = 0;
+        
+        function getTemperature() {
+            var patientName = document.getElementById("patientName").value;
+            const currentTime = new Date().toLocaleTimeString();
+            UART.eval('E.getTemperature()', function(temp) {
+                temperature = temp;
+                document.getElementById("result").innerHTML =  "Hi " + patientName +" Your temperature is " + temperature + " as of Current Time: " + currentTime;
+            });
+        }
+
+        setInterval(getTemperature, refreshTime); // Refresh every 10 seconds
+
+        const ctx = document.getElementById('heartRateChart').getContext('2d');
+
+        // Initial time labels
+        const labels = [];
+        for (let i = 0; i < 2; i++) {
+            labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        }
+        
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Temperature (°C)',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Temperature (°C)'
+                        },
+                        min: 0,
+                        max: 50
+                    }
+                }
+            }
+        };
+
+        const heartRateChart = new Chart(ctx, config);
+            function updateTemperatureChart() {
+            const newTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            heartRateChart.data.labels.push(newTime);
+            heartRateChart.data.datasets[0].data.push(temperature);
+
+            // Keep only 60 data points
+            if (heartRateChart.data.labels.length > 120) {
+                heartRateChart.data.labels.shift();
+                heartRateChart.data.datasets[0].data.shift();
+            }
+
+            heartRateChart.update();
+        }
+
+        setInterval(updateTemperatureChart, refreshTime);
+    </script>
+    <span id="result"></span>
+      <script type="module" src="tofire.js"> </script>
+</body>
+</html>
