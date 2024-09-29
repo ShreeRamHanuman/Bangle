@@ -21,7 +21,7 @@
 
     var BANGLE_CODE = `
       var temp = E.getTemperature(); temp = 'T'+temp; console.log(temp);
-      var battery = E.getBattery(); battery = 'B'+temp; console.log(battery);
+      var battery = E.getBattery(); battery = 'B'+battery; console.log(battery);
       
       Bangle.setHRMPower(1);
       Bangle.on('HRM', function(hrm) {
