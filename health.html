@@ -12,7 +12,7 @@
   <!-- Heart Rate Display -->
   <h1>Heart Rate Data</h1>
   <p id="heartRateDisplay">Waiting for data...</p>
-  <script src="https://www.espruino.com/js/uart.js"></script>
+  
   <script src="https://www.puck-js.com/puck.js"></script>
   <script>
     
@@ -21,6 +21,8 @@
 
     var BANGLE_CODE = `
       var temp = E.getTemperature(); temp = 'T'+temp; console.log(temp);
+      var battery = E.getBattery(); battery = 'B'+temp; console.log(battery);
+      
       Bangle.setHRMPower(1);
       Bangle.on('HRM', function(hrm) {
         var d = [
