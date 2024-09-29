@@ -9,45 +9,28 @@
 var currentBPM = null;
 var currentConfidence = null;
 
+     var BANGLE_CODE = `
+  Bangle.setHRMPower(1)
+  Bangle.on('HRM',function(hrm) {
+    var d = [
+      "H",
+      hrm.bpm,
+      hrm.confidence
+      ];
+    Bluetooth.println(d.join(","));
+  })
+  `;
 function getHealthHeart() {
-  return new Promise((resolve, reject) => {
-    UART.eval('Bangle.setHRMPower(1)', function(result1) {
-      console.log("Heart rate monitor powered on:", result1);
-      resolve();
-    });
-  })
-  .then(() => {
-    return new Promise((resolve, reject) => {
-      UART.eval(`Bangle.on('HRM', function(hrm) {
-        const bpm = hrm.bpm;
-        const confidence = hrm.confidence;
-        const raw = hrm.raw;
 
-        currentBPM = bpm;
-        currentConfidence = confidence;
-
-        console.log("BPM", currentBPM);
-        console.log("Confidence", currentConfidence);
-
-        resolve();
-      });`, function(result) {
-        // console.log("HRM listener registered:", result);
-        resolve();
-      });
-    });
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
-}
+          // Now upload our code to it
+          UART.eval("\x03\x10if(1){"+BANGLE_CODE+"}\n",
+            function() { console.log("Ready..."); });
+  }
+  
 
 setInterval(getHealthHeart, 3000);
 
-function logCurrentValue() {
-  console.log("Current BPM:", currentBPM);
-  console.log("Current Confidence:", currentConfidence);
-}
-setInterval(logCurrentValue, 5000);
+
   </script>
 
   <h1>Health Status 109</h1><button onclick="getHealthHeart()">Get Heart Rate</button>
