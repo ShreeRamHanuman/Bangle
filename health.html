@@ -20,15 +20,40 @@ var currentConfidence = null;
     Bluetooth.println(d.join(","));
   })
   `;
-function getHealthHeart() {
-
+var connection;
+  document.getElementById("btnConnect").addEventListener("click", function() {
+    // disconnect if connected already
+    if (connection) {
+      connection.close();
+      connection = undefined;
+    }
+    // Connect
+    UART.eval(function(c) {
+      if (!c) {
+        alert("Couldn't connect!");
+        return;
+      }
+      connection = c;
+      // Handle the data we get back, and call 'onLine'
+      // whenever we get a line
+      var buf = "";
+      connection.on("data", function(d) {
+        buf += d;
+        var l = buf.split("\n");
+        buf = l.pop();
+        l.forEach(onLine);
+      });
+      // First, reset the Bangle
+      connection.write("reset();\n", function() {
+        // Wait for it to reset itself
+        setTimeout(function() {
           // Now upload our code to it
-          UART.eval("\x03\x10if(1){"+BANGLE_CODE+"}\n",
+          UART.write("\x03\x10if(1){"+BANGLE_CODE+"}\n",
             function() { console.log("Ready..."); });
-  }
-  
-
-setInterval(getHealthHeart, 3000);
+        }, 1500);
+      });
+    });
+  });
 
 
   </script>
