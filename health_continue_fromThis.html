@@ -96,7 +96,7 @@
     function onLine(line) {
       console.log("Received: " + line);
       var parts = line.split(",");
-      if (parts[0] === "H") {
+      if (parts[0] === "A") {
         currentBPM = parts[1];
         currentConfidence = parts[2];
         setinterval(
