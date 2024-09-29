@@ -32,6 +32,17 @@
         ];
         Bluetooth.println(d.join(","));
       });
+      // Accelerometer setup
+      Bangle.on('accel', function(a) {
+        var dA = [
+          "A",
+          a.x.toFixed(2),
+          a.y.toFixed(2),
+          a.z.toFixed(2)
+        ];
+        Bluetooth.println(dA.join(","));
+        console.log("Accel"+dA);
+      });
     `;
 
     var connection;
