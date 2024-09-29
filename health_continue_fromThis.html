@@ -20,8 +20,16 @@
     var currentConfidence = null;
 
     var BANGLE_CODE = `
+     Bangle.on('step', function(count) {
+      Bluetooth.println('S,' + count); // Send step count via Bluetooth
+      });
       var temp = E.getTemperature(); temp = 'T'+temp; console.log(temp);
       var battery = E.getBattery(); battery = 'B'+battery; console.log(battery);
+      Bangle.setGPSPower(1);
+      Bangle.on('GPS', function(location) {
+      console.log("Latitude: " + location.lat + ", Longitude: " + location.lon);
+      });
+
       
       Bangle.setHRMPower(1);
       Bangle.on('HRM', function(hrm) {
