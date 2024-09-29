@@ -99,8 +99,9 @@
       if (parts[0] === "H") {
         currentBPM = parts[1];
         currentConfidence = parts[2];
+        setinterval(
         document.getElementById("heartRateDisplay").textContent = 
-          "Heart Rate: " + currentBPM + " BPM, Confidence: " + currentConfidence;
+          "Heart Rate: " + currentBPM + " BPM, Confidence: " + currentConfidence;,3000);
       }
     }
 
