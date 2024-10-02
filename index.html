@@ -18,14 +18,14 @@
                              <h4 class="me-auto" id="watch-name">Bangle.js Dashboard</h4>
             </div>
             <div class="text-center">
-                <input type="text" id="user-name" placeholder="Enter your name" class="form-control d-inline-block w-auto">
-                <button class="btn btn-primary" onclick="updateName()">Get Vitals</button>
+                <input type="text" id="user-name" placeholder="Enter your name for readings" class="form-control d-inline-block w-auto">
+                <button class="btn btn-primary" onclick="updateName()">Get Readings</button>
             </div>
             <div class="text-right">
                 <h7 id="date-time">Date:</h7>
                 <div class="battery-status d-flex align-items-center">
                     <i class="fas fa-battery-three-quarters"></i>
-                    <span id="battery-level" class="ms-2">85%</span>
+                    <span id="battery-level" class="ms-2">--%</span>
                 </div>
             </div>
         </div>
@@ -37,7 +37,8 @@
                     <div class="dashboard-card" onclick="displayChart('heart-rate-chart', heartRateData, 'Heart Rate')">
                         <i class="fas fa-heartbeat icon"></i>
                         <h5>Heart Rate</h5>
-                        <p id="heart-rate">75 bpm</p>
+                        <p id="heart-rate">-- bpm</p>
+                        <p id="heart-rate">Confiednce : -- %</p>
                         <div class="chart-container" id="heart-rate-chart-container" onclick="hideChart(event)">
                             <canvas id="heart-rate-chart"></canvas>
                         </div>
@@ -48,7 +49,7 @@
                     <div class="dashboard-card" onclick="displayChart('steps-chart', stepsData, 'Steps')">
                         <i class="fas fa-shoe-prints icon"></i>
                         <h5>Steps</h5>
-                        <p id="steps-count">5,320 steps</p>
+                        <p id="steps-count">---- steps</p>
                         <div class="chart-container" id="steps-chart-container" onclick="hideChart(event)">
                             <canvas id="steps-chart"></canvas>
                         </div>
@@ -59,7 +60,7 @@
                     <div class="dashboard-card" onclick="displayChart('temperature-chart', temperatureData, 'Temperature')">
                         <i class="fas fa-thermometer-half icon"></i>
                         <h5>Temperature</h5>
-                        <p id="temperature">36.5°C</p>
+                        <p id="temperature">--°C</p>
                         <div class="chart-container" id="temperature-chart-container" onclick="hideChart(event)">
                             <canvas id="temperature-chart"></canvas>
                         </div>
@@ -70,7 +71,7 @@
                     <div class="dashboard-card" onclick="displayChart('acceleration-chart', accelerationData, 'Acceleration')">
                         <i class="fas fa-tachometer-alt icon"></i>
                         <h5>Acceleration</h5>
-                        <p id="acceleration">2.3 m/s²</p>
+                        <p id="acceleration">-- m/s²</p>
                         <div class="chart-container" id="acceleration-chart-container" onclick="hideChart(event)">
                             <canvas id="acceleration-chart"></canvas>
                         </div>
@@ -84,7 +85,7 @@
         function updateName() {
             const nameInput = document.getElementById('user-name').value;
             const nameDisplay = document.getElementById('watch-name');
-            nameDisplay.textContent = nameInput.trim() !== "" ? nameInput + "'s Dashboard" : "Bangle.js Dashboard";
+            nameDisplay.textContent = nameInput.trim() !== "" ? nameInput + "'s Bangle Readings" : "Bangle.js Dashboard";
         }
 
         const dateTimeElem = document.getElementById("date-time");
