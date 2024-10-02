@@ -34,20 +34,33 @@
     
     var currentBPM = null;
     var currentConfidence = null;
+    var currentTemperature = null;
+    var currentBattery = null;
+    var currentAccel1 = null;
+    var currentAccel2 = null;
+    var currentAccel3 = null;
+    var currentStep = null;
+
     
     var connection;
      var lastDataTime = 0; // Variable to track the last time data was processed
     var intervalTime = 30000; // 30 seconds in milliseconds
 
     var BANGLE_CODE = `
-     Bangle.on('step', function(count) {
+     setInterval( function() {Bangle.on('step', function(count) {
       Bluetooth.println('S,' + count); // Send step count via Bluetooth
-      });
-      var temp = E.getTemperature(); temp = 'T'+temp; console.log(temp);
-      var battery = E.getBattery(); battery = 'B'+battery; console.log(battery);
+      });}, 3000); // every 3 second -- change this to 30 second
+      setInterval( function() { var temp = E.getTemperature(); temp = 'T,'+temp; console.log(temp);
+      Bluetooth.println(temp); }, 3000);
+
+     setInterval( function() { var battery = E.getBattery(); battery = 'B,'+battery; console.log(battery);
+      Bluetooth.println(battery);}, 3000);
+
       Bangle.setGPSPower(1);
       Bangle.on('GPS', function(location) {
       console.log("Latitude: " + location.lat + ", Longitude: " + location.lon);
+
+      Bluetooth.println('L,'+ location.lat +','+ location.lon);
       });
 
       
