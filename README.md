@@ -13,6 +13,7 @@ This web application reads data from the Bangle.js 1 watch and uploads it to a F
 - Connects to Bangle.js 1 and retrieves data
 - Uploads data to Firebase Realtime Database
 - Reads and visualizes data using web-based charts and graphs
+- Uploads and retrive data every 30 seconds.
 
 ## Live Demo
 You can access the live version of this application here:
