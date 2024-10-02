@@ -36,9 +36,9 @@ You can access the live version of this application here:
 This project is licensed under the MIT License.
 
 ## Contact
-- ** Puskar K C
-- ** Email: puskarkc@gmail.com
-- ** Website: www.puskarkc.com.np
-- ** Linkedin: https://www.linkedin.com/in/puskarkc/
+- **Puskar K C**
+- Email: puskarkc@gmail.com
+- Website: www.puskarkc.com.np
+- Linkedin: https://www.linkedin.com/in/puskarkc/
 
 
