@@ -1,4 +1,4 @@
-// Your web app's Firebase configuration
+// Your web app's Firebase cssonfiguration
 
 console.log("index.js loaded-- by Puskar");
 
