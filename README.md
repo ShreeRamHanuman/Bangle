@@ -30,12 +30,15 @@ You can access the live version of this application here:
 2. Enter your name & allow the application to read data from the watch.
 3. The data is automatically uploaded to Firebase.
 4. & automatically visualized on the dashboard.
+5. Click on Card to display chart, & click on same chart to display card.
 
 ## License
 This project is licensed under the MIT License.
 
 ## Contact
-Puskar K C (puskarkc@gmail.com)
-www.puskarkc.com.np
+- ** Puskar K C
+- ** Email: puskarkc@gmail.com
+- ** Website: www.puskarkc.com.np
+- ** Linkedin: https://www.linkedin.com/in/puskarkc/
 
 
