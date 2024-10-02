@@ -80,6 +80,14 @@
         ];
         Bluetooth.println(d.join(","));
       });
+     // Bangle.setStepCount(400);
+      var a = Bangle.getStepCount();
+        
+        //Bluetooth.println(dS.join(","));
+        console.log("step : "+a);
+      
+
+
       // Accelerometer setup
       Bangle.on('accel', function(a) {
         var dA = [
