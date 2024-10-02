@@ -71,12 +71,19 @@
 
                 <div class="col-md-4">
                     <div class="dashboard-card" onclick="displayChart('acceleration-chart', accelerationData, 'Acceleration')">
-                        <i class="fas fa-tachometer-alt icon"></i>
-                        <h5>Acceleration</h5>
-                        <p id="acceleration">-- m/s²</p>
+                        <i class="fas fa-hand-rock icon"></i>
+                        <h5>Hand Movement</h5>
+                        <p id="movement">-- m/s²</p>
                         <div class="chart-container" id="acceleration-chart-container" onclick="hideChart(event)">
                             <canvas id="acceleration-chart"></canvas>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dashboard-card" onclick="getAddress(-35.24698533333, 149.07647233333)">
+                        <i class="fas fa-map-marker-alt icon"></i>
+                        <h5>Current Location</h5>
+                        <p id="address">Eastern Valley Way, Bruce, 2617 Australian Capital Terotory</p>
                     </div>
                 </div>
             </div>
