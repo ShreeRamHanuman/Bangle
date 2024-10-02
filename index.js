@@ -42,7 +42,7 @@ function redirectToFile(fileName) {
 
 
 
-var id =1;
+var id =2;
 
 function save() {
 var patientName = document.getElementById("patientName").value;
