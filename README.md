@@ -25,6 +25,7 @@ You can access the live version of this application here:
 - **Firebase Realtime Database**: Cloud database for storing and retrieving data
 - **HTML/CSS**: Frontend technologies for the web application, (Bootstrap & fontawesome)
 - **Chart.js** : For data visualization on the web dashboard (Used official code template for graph)
+- **OpenStreetMap data API** : Converting Latitude & Longitude to Text address https://nominatim.org/ API
 
 ## How to Use
 1. Connect the Bangle.js 1 watch using web browser. (Chrome prefered)
