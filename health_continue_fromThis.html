@@ -54,7 +54,7 @@
     var intervalTime = 30000; // 30 seconds in milliseconds
 
     var BANGLE_CODE = `
-     setInterval( function() {Bangle.on('step', function(count) {
+     setInterval( function() {Bangle.on('step', function(count) { // Use this for movement
       Bluetooth.println('S,' + count); // Send step count via Bluetooth
       });}, 3000); // every 3 second -- change this to 30 second
       setInterval( function() { var temp = E.getTemperature(); temp = 'T,'+temp; console.log(temp);
@@ -81,23 +81,20 @@
         Bluetooth.println(d.join(","));
       });
      // Bangle.setStepCount(400);
-      var a = Bangle.getStepCount();
-        
-        //Bluetooth.println(dS.join(","));
-        console.log("step : "+a);
       
-
+      setInterval( function() { var steps = Bangle.getStepCount(); steps = 'P,'+steps; console.log(steps);
+      Bluetooth.println(steps);}, 3000);
 
       // Accelerometer setup
       Bangle.on('accel', function(a) {
-        var dA = [
+        var Z = [
           "A",
           a.x.toFixed(2),
           a.y.toFixed(2),
           a.z.toFixed(2)
         ];
-        Bluetooth.println(dA.join(","));
-        console.log("Accel"+dA);
+        Bluetooth.println(Z.join(","));
+        console.log("Accel: "+Z);
       });
     `;
 
@@ -150,11 +147,15 @@
         currentBattery = parts[1];
       } else if (parts[0]=="T"){
         currentTemperature = parts[1];
-      } else if (parts[0]=="S"){
+      } else if (parts[0]=="P"){
         currentStep = parts[1];
       } else if (parts[0]=="L"){
         currentLatitde = parts[1];
         currentLongititude = parts[2];
+      }else if (parts[0]=="A"){
+        currentAccel1 = parts[1];
+        currentAccel2 = parts[2];
+        currentAccel3 = parts[3];
       }
       
       // Process heart rate data only every 30 seconds
@@ -162,24 +163,41 @@
         if (currentTime - lastDataTime >= intervalTime) {
           lastDataTime = currentTime; // Update last data time
           
+          /// Heart Rate
           document.getElementById("heartRateDisplay").textContent = 
           "Heart Rate: " + currentBPM + " BPM, Confidence: " + currentConfidence;
-  /// Getting Location using https://nominatim.org API 
-    getLocationFromLatLon(currentLatitde, currentLongititude)
-      .then(locationName => {
-      document.getElementById("locationDataDisplay").textContent = "Your Location: " + locationName; // Update display
-    })
-    .catch(error => {
-      console.error('Failed to fetch location:', error);
-      document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
-    });
           
-          }
+          // Steps
+          document.getElementById("stepDataDisplay").textContent = 
+          "Steps Rate: " + currentStep;
 
-    }
+          // Temperature
+          document.getElementById("temperatureDataDisplay").textContent = 
+          "Temperature: " + currentTemperature;
+
+          // Battery
+          document.getElementById("batteryDataDisplay").textContent = 
+          "Battery: " + currentBattery ;
+
+          // Acceleration
+          document.getElementById("accelerationDataDisplay").textContent = 
+          "Accel 1 (X):  " + currentAccel1 + " Accel 2(Y): " + currentAccel2 + " Accl 3 (Z): " + currentAccel3; 
+          
+          // Location
+          getLocationFromLatLon(currentLatitde, currentLongititude)
+           .then(locationName => {
+          document.getElementById("locationDataDisplay").textContent = "Your Location: " + locationName; // Update display
+           })
+          .catch(error => {
+           console.error('Failed to fetch location:', error);
+          document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
+            });
+          }
+        }
 
 
 ///// Creating function for https://nominatim.org/ API, OPEN street map.
+/// Getting Location using https://nominatim.org API 
   function getLocationFromLatLon(lat, lon) {
   const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
 
