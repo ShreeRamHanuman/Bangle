@@ -34,8 +34,9 @@
   <p id="locationDataDisplay">Waiting for data...</p>
 
   <script src="https://www.puck-js.com/puck.js"></script>
-  <script>
-    
+  <script type="module">
+    import { saveToFirebase } from './tofire.js';
+    import { readFromFirebase } from './tofire.js';
     var currentBPM = 0;
     var currentConfidence = 0;
     var currentTemperature = 0;
@@ -192,6 +193,10 @@
            console.error('Failed to fetch location:', error);
           document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
             });
+
+            saveToFirebase('Puskar', currentTime, 
+            currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
+  currentConfidence, currentStep, currentLatitde, currentLongititude ) /// Save to Firebase
           }
         }
 
