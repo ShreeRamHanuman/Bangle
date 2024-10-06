@@ -6,7 +6,7 @@
   <title>Heart Rate from Bangle.js</title>
 </head>
 <body>
-    <!-- Connect Button -->
+  <!-- Connect Button -->
   <button id="btnConnect">Connect</button>
 
   <!-- Heart Rate Display -->
@@ -25,13 +25,14 @@
   <h1>Battery Data Display</h1>
   <p id="batteryDataDisplay">Waiting for data...</p>
 
-    <!-- Steps Rate Display -->
-    <h1>Steps Data Display</h1>
-    <p id="stepDataDisplay">Waiting for data...</p>
+  <!-- Steps Rate Display -->
+  <h1>Steps Data Display</h1>
+  <p id="stepDataDisplay">Waiting for data...</p>
   
-    <!-- Steps Rate Display -->
-    <h1>Location Data Display</h1>
-    <p id="locationDataDisplay">Waiting for data...</p>
+  <!-- Steps Rate Display -->
+  <h1>Location Data Display</h1>
+  <p id="locationDataDisplay">Waiting for data...</p>
+
   <script src="https://www.puck-js.com/puck.js"></script>
   <script>
     
@@ -50,18 +51,18 @@
 
     
     var connection;
-     var lastDataTime = 0; // Variable to track the last time data was processed
-    var intervalTime = 30000; // 30 seconds in milliseconds
+    var lastDataTime = 0; // Variable to track the last time data was processed
+    var intervalTime = 10000; // 30 seconds in milliseconds
 
     var BANGLE_CODE = `
      setInterval( function() {Bangle.on('step', function(count) { // Use this for movement
       Bluetooth.println('S,' + count); // Send step count via Bluetooth
-      });}, 3000); // every 3 second -- change this to 30 second
+      });}, 10000); // every 3 second -- change this to 30 second
       setInterval( function() { var temp = E.getTemperature(); temp = 'T,'+temp; console.log(temp);
-      Bluetooth.println(temp); }, 3000);
+      Bluetooth.println(temp); }, 10000);
 
      setInterval( function() { var battery = E.getBattery(); battery = 'B,'+battery; console.log(battery);
-      Bluetooth.println(battery);}, 3000);
+      Bluetooth.println(battery);}, 10000);
 
       Bangle.setGPSPower(1);
       Bangle.on('GPS', function(location) {
@@ -83,7 +84,7 @@
      // Bangle.setStepCount(400);
       
       setInterval( function() { var steps = Bangle.getStepCount(); steps = 'P,'+steps; console.log(steps);
-      Bluetooth.println(steps);}, 3000);
+      Bluetooth.println(steps);}, 10000);
 
       // Accelerometer setup
       Bangle.on('accel', function(a) {
@@ -97,8 +98,7 @@
         console.log("Accel: "+Z);
       });
     `;
-
-    
+  
     document.getElementById("btnConnect").addEventListener("click", function() {
       // disconnect if connected already
       if (connection) {
@@ -115,12 +115,12 @@
         connection = c;
 
         // Handle incoming data
-        var buf = "";
-        connection.on("data", function(d) {
-          buf += d;
-          var lines = buf.split("\n");
-          buf = lines.pop(); // Keep the last incomplete line in buffer
-          lines.forEach(onLine); // Process each complete line
+      var buf = "";
+      connection.on("data", function(d) {
+        buf += d;
+        var lines = buf.split("\n");
+        buf = lines.pop(); // Keep the last incomplete line in buffer
+        lines.forEach(onLine); // Process each complete line
         });
 
         // First, reset the Bangle
@@ -130,7 +130,7 @@
             // Now upload our code to monitor heart rate
             connection.write("\x03\x10if(1){" + BANGLE_CODE + "}\n",
               function() { console.log("Ready to monitor heart rate."); });
-          }, 1500);
+          }, 1000);
         });
       });
     });
@@ -158,7 +158,7 @@
         currentAccel3 = parts[3];
       }
       
-      // Process heart rate data only every 30 seconds
+      // Process heart rate data only every 10 seconds
       var currentTime = Date.now();
         if (currentTime - lastDataTime >= intervalTime) {
           lastDataTime = currentTime; // Update last data time
@@ -217,13 +217,6 @@
       throw error;  // Propagate the error
     });
 }
-
-
-
-
-  </script>
-
-
-
+</script>
 </body>
 </html>
