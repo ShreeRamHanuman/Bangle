@@ -73,11 +73,22 @@ const snapshot = await get(patientRef);
                 const data = snapshot.val();
                 console.log("Patient Datajs:", data.patientName);
                 console.log("Time:js", data.currentTime);
-                console.log("Temperature:js", data.temperature);
+                console.log("Longi:js", data.Latitude,);
               return {
                 patientNameFB : data.patientName,
+                patientNameFB: data.patientName,
                 currentTimeFB : data.currentTime,
-                temperatureFB : data.temperature
+                temperatureFB: data.temperature,
+                batteryFB: data.battery,
+                Accel1FB: data.Accel1,
+                Accel2FB: data.Accel2,
+                Accel3FB: data.Accel3,
+                BPMFB: data.BPM,
+                ConfidenceFB: data.Confidence,
+                StepFB: data.Step,
+                LatitudeFB: data.Latitude,
+                LongitudeFB: data.Longitude,
+                idFB: data.id
             };
               
             } else {
