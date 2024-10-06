@@ -30,8 +30,18 @@ export function saveToFirebase(patientName, currentTime, temperature) {
             set(ref(database, patientName+'/'+id), {
                 patientName: patientName,
                 currentTime: currentTime,
-                temperature: temperature,
-              id: id
+                temperature: currentTemperature,
+                battery: currentBattery,
+                Accel1: currentAccel1,
+                Accel2: currentAccel2,
+                Accel3: currentAccel3,
+                BPM: currentBPM,
+                Confidence: currentConfidence,
+                Step: currentStep,
+                Latitude: currentLatitde,
+                Longitude: currentLongititude,
+
+                id: id
             })
             .then(() => {
              // redirectToFile('PatientList.html');
