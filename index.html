@@ -27,7 +27,7 @@
                 <h7 id="date-time">Date:</h7>
                 <div class="battery-status d-flex align-items-center">
                     <i class="fas fa-battery-three-quarters"></i>
-                    <span id="battery-level" class="ms-2">--%</span>
+                    <span id="batteryDataDisplay" class="ms-2">--%</span>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                     <div class="dashboard-card" onclick="displayChart('heart-rate-chart', heartRateData, 'Heart Rate')">
                         <i class="fas fa-heartbeat icon"></i>
                         <h5>Heart Rate</h5>
-                        <p id="heart-rate"> -- bpm</p>
+                        <p id="heartRateDisplay"> -- bpm</p>
                         <p id="heart-rate">Confiednce : -- %</p>
                         <div class="chart-container" id="heart-rate-chart-container" onclick="hideChart(event)">
                             <canvas id="heart-rate-chart"></canvas>
@@ -51,7 +51,7 @@
                     <div class="dashboard-card" onclick="displayChart('steps-chart', stepsData, 'Steps')">
                         <i class="fas fa-shoe-prints icon"></i>
                         <h5>Steps</h5>
-                        <p id="steps-count">---- steps</p>
+                        <p id="stepDataDisplay">---- steps</p>
                         <div class="chart-container" id="steps-chart-container" onclick="hideChart(event)">
                             <canvas id="steps-chart"></canvas>
                         </div>
@@ -62,7 +62,7 @@
                     <div class="dashboard-card" onclick="displayChart('temperature-chart', temperatureData, 'Temperature')">
                         <i class="fas fa-thermometer-half icon"></i>
                         <h5>Temperature</h5>
-                        <p id="temperature">--°C</p>
+                        <p id="temperatureDataDisplay">--°C</p>
                         <div class="chart-container" id="temperature-chart-container" onclick="hideChart(event)">
                             <canvas id="temperature-chart"></canvas>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="dashboard-card" onclick="getAddress(-35.24698533333, 149.07647233333)">
                         <i class="fas fa-map-marker-alt icon"></i>
                         <h5>Current Location</h5>
-                        <p id="address">Eastern Valley Way, Bruce, 2617 Australian Capital Terotory</p>
+                        <p id="locationDataDisplay">Eastern Valley Way, Bruce, 2617 Australian Capital Terotory</p>
                     </div>
                 </div>
             </div>
