@@ -75,7 +75,6 @@ const snapshot = await get(patientRef);
                 console.log("Time:js", data.currentTime);
                 console.log("Longi:js", data.Latitude,);
               return {
-                patientNameFB : data.patientName,
                 patientNameFB: data.patientName,
                 currentTimeFB : data.currentTime,
                 temperatureFB: data.temperature,

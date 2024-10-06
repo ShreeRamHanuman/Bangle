@@ -37,6 +37,7 @@
   <script type="module">
     import { saveToFirebase } from './tofire.js';
     import { readFromFirebase } from './tofire.js';
+    var id =1;
     var currentBPM = 0;
     var currentConfidence = 0;
     var currentTemperature = 0;
@@ -50,6 +51,19 @@
     var currentLongititude = 0;
     var locationName = "Bruce";
 
+   var patientNameFB = "";
+   var currentTimeFB = "";
+   var temperatureFB = "";
+   var batteryFB= "";
+   var Accel1FB= "";
+   var Accel2FB= "";
+   var Accel3FB= "";
+   var BPMFB= "";
+   var ConfidenceFB= "";
+   var StepFB= "";
+   var LatitudeFB= "";
+   var LongitudeFB= "";
+   var idFB= "";
     
     var connection;
     var lastDataTime = 0; // Variable to track the last time data was processed
@@ -164,28 +178,61 @@
         if (currentTime - lastDataTime >= intervalTime) {
           lastDataTime = currentTime; // Update last data time
           
-          /// Heart Rate
+         
+
+            saveToFirebase('Puskar', currentTime, 
+            currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
+  currentConfidence, currentStep, currentLatitde, currentLongititude ) /// Save to Firebase
+  setInterval(readFromFB, intervalTime); // Refresh every xx seconds
+          }
+        }
+
+       function readFromFB() {
+        id=id+1;
+        // readFromFirebase(patientName,id); 
+        readFromFirebase('Puskar', id).then((valFire) => { // this function starts reading value from DB
+                if (valFire) {
+                    console.log("Patient Data HTML XXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:", valFire['patientNameFB']); // checking in console
+                    console.log("Time HTML:", valFire['currentTimeFB']);
+                    console.log("LongiXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['LongitudeFB']);
+                    console.log("ID XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['idFB']);
+
+                    patientNameFB = valFire['patientNameFB'];
+                    currentTimeFB = valFire['currentTimeFB'];
+                    temperatureFB = valFire['temperatureFB'];
+                    batteryFB= valFire['batteryFB'];
+                    Accel1FB= valFire['Accel1FB'];
+                    Accel2FB= valFire['Accel2FB'];
+                    Accel3FB= valFire['Accel3FB'];
+                    BPMFB= valFire['BPMFB'];
+                    ConfidenceFB= valFire['ConfidenceFB'];
+                    StepFB= valFire['StepFB'];
+                    LatitudeFB= valFire['LatitudeFB'];
+                    LongitudeFB= valFire['LongitudeFB'];
+                    idFB= valFire['idFB'];
+
+                     /// Heart Rate
           document.getElementById("heartRateDisplay").textContent = 
-          "Heart Rate: " + currentBPM + " BPM, Confidence: " + currentConfidence;
+          "Heart Rate: " + BPMFB + " BPM, Confidence: " + ConfidenceFB;
           
           // Steps
           document.getElementById("stepDataDisplay").textContent = 
-          "Steps Rate: " + currentStep;
+          "Steps Rate: " + StepFB;
 
           // Temperature
           document.getElementById("temperatureDataDisplay").textContent = 
-          "Temperature: " + currentTemperature;
+          "Temperature: " + temperatureFB;
 
           // Battery
           document.getElementById("batteryDataDisplay").textContent = 
-          "Battery: " + currentBattery ;
+          "Battery: " + batteryFB ;
 
           // Acceleration
           document.getElementById("accelerationDataDisplay").textContent = 
-          "Accel 1 (X):  " + currentAccel1 + " Accel 2(Y): " + currentAccel2 + " Accl 3 (Z): " + currentAccel3; 
+          "Accel 1 (X):  " + Accel1FB + " Accel 2(Y): " + Accel2FB + " Accl 3 (Z): " + Accel3FB; 
           
           // Location
-          getLocationFromLatLon(currentLatitde, currentLongititude)
+          getLocationFromLatLon(LatitudeFB, LongitudeFB)
            .then(locationName => {
           document.getElementById("locationDataDisplay").textContent = "Your Location: " + locationName; // Update display
            })
@@ -193,13 +240,15 @@
            console.error('Failed to fetch location:', error);
           document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
             });
-
-            saveToFirebase('Puskar', currentTime, 
-            currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
-  currentConfidence, currentStep, currentLatitde, currentLongititude ) /// Save to Firebase
-          }
+                    
+                } else {
+                    console.log("No patient data found.");
+                }
+            }).catch((error) => {
+                console.error("Error fetching patient data: ", error);
+            });
         }
-
+       
 
 ///// Creating function for https://nominatim.org/ API, OPEN street map.
 /// Getting Location using https://nominatim.org API 
