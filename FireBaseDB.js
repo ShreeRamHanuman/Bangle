@@ -1,13 +1,12 @@
-// Your web app's Firebase configuration
+// Puskar K C
+// This file uploads & Download data to Firbase realtime database - BangleJs1
 
-console.log("JS File Loaded -- tofire.js 3:20");
+console.log("JS File Loaded -- FIREBASE DATABASE JS FILE");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
+  
+// Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCPDcL-frGybKKl5ueoqo8uVPTqC0xrXHY",
     authDomain: "banglejs1.firebaseapp.com",
@@ -23,11 +22,12 @@ const app = initializeApp(firebaseConfig);
 // Set database variable
 const database = getDatabase(app);
 
-var id =1;
+var id =0;
 
 export function saveToFirebase(patientName, currentTime, 
   currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
-  currentConfidence, currentStep, currentLatitde, currentLongititude ) {
+  currentConfidence, currentStep, currentLatitde, currentLongititude ) 
+  {
   id= id+1;
 // Save patient data to the database
             set(ref(database, patientName+'/'+id), {
@@ -47,18 +47,15 @@ export function saveToFirebase(patientName, currentTime,
                 id: id
             })
             .then(() => {
-             // redirectToFile('PatientList.html');
-              //  alert('Saved');
-           
-                // Call the function to redirect to PatientList.html
-                
-                
+            // redirectToFile('PatientList.html');
+            //  alert('Saved');
+            // Call the function to redirect to PatientList.html - Not implemented in this build   
             })
             .catch((error) => {
                 console.error("Error writing to database: ", error);
             });
-//window.location.href = 'Patient List.html';
-}
+            //window.location.href = 'Patient List.html';
+    }
 
        
 // Function to read data based on patient name
