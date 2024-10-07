@@ -2,19 +2,20 @@
 
 console.log("JS File Loaded -- tofire.js 3:20");
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getDatabase, ref, set, get, child, remove, update } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyDE6Q7MLZi7vcXdNGE_BcF6m3CoZt3FUd0",
-    authDomain: "newcrud-ba5a9.firebaseapp.com",
-    projectId: "newcrud-ba5a9",
-    storageBucket: "newcrud-ba5a9.appspot.com",
-    messagingSenderId: "980767779596",
-    appId: "1:980767779596:web:f915afab7ea87c540a3729"
+    apiKey: "AIzaSyCPDcL-frGybKKl5ueoqo8uVPTqC0xrXHY",
+    authDomain: "banglejs1.firebaseapp.com",
+    projectId: "banglejs1",
+    storageBucket: "banglejs1.appspot.com",
+    messagingSenderId: "878784356528",
+    appId: "1:878784356528:web:ddc37c286b0c1bc5b49b75",
+    measurementId: "G-MW87BHX89S"
   };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
