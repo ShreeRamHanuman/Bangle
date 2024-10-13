@@ -138,7 +138,7 @@
   
         Bangle.setGPSPower(1);
         Bangle.on('GPS', function(location) {
-        console.log("Latitude: " + location.lat + ", Longitude: " + location.lon);
+       // console.log("Latitude: " + location.lat + ", Longitude: " + location.lon);
   
         Bluetooth.println('L,'+ location.lat +','+ location.lon);
         });
@@ -167,7 +167,7 @@
             a.z.toFixed(2)
           ];
           Bluetooth.println(Z.join(","));
-          console.log("Accel: "+Z);
+         // console.log("Accel: "+Z);
         });
       `;
     
@@ -212,7 +212,7 @@
       // Function to process each line of heart rate data
       // Write code to split the value of Temperature, battery , Accelerometer
       function onLine(line) {
-        console.log("Received: " + line);
+     //   console.log("Received: " + line);
         var parts = line.split(",");
         if (parts[0] === "H") {
           currentBPM = parts[1];
@@ -242,12 +242,25 @@
               saveToFirebase(patientName, currentTime, 
               currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
     currentConfidence, currentStep, currentLatitde, currentLongititude ) /// Save to Firebase
-    setInterval(readFromFB, intervalTime); // Refresh every xx seconds
+   // setInterval(readFromFB, intervalTime); // Refresh every xx seconds
+   .then((id) => {
+    // Now read the data after writing is successful
+    return readFromFB(id);
+  })
+  .then((data) => {
+    if (data) {
+      console.log("Data read from Firebase:", data);
+    }
+  })
+  .catch((error) => {
+    console.error("Error during save or read:", error);
+  });
             }
           }
   
-         function readFromFB() {
-          id=id+1;
+         function readFromFB(id) {
+         // id=id+1;
+          console.log(id);
           // readFromFirebase(patientName,id); 
           readFromFirebase(patientName, id).then((valFire) => { // this function starts reading value from DB
                   if (valFire) {
@@ -255,6 +268,7 @@
                       console.log("Time HTML:", valFire['currentTimeFB']);
                       console.log("LongiXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['LongitudeFB']);
                       console.log("ID XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['idFB']);
+                      console.log("Accel1FB XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['Accel1FB']);
   
                       patientNameFB = valFire['patientNameFB'];
                       currentTimeFB = valFire['currentTimeFB'];
@@ -287,7 +301,7 @@
             "Battery: " + batteryFB ;
   
             // Acceleration
-            document.getElementById("accelerationDataDisplay").textContent = 
+            document.getElementById("movement").textContent = 
             "Accel 1 (X):  " + Accel1FB + " Accel 2(Y): " + Accel2FB + " Accl 3 (Z): " + Accel3FB; 
             
             // Location
@@ -296,7 +310,7 @@
             document.getElementById("locationDataDisplay").textContent = "Your Location: " + locationName; // Update display
              })
             .catch(error => {
-             console.error('Failed to fetch location:', error);
+            // console.error('Failed to fetch location:', error);
             document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
               });
                       
@@ -304,13 +318,14 @@
                       console.log("No patient data found.");
                   }
               }).catch((error) => {
-                  console.error("Error fetching patient data: ", error);
+                  console.error("Error ERROR fetching patient data: ", error);
               });
           }
          
   
   ///// Creating function for https://nominatim.org/ API, OPEN street map.
   /// Getting Location using https://nominatim.org API 
+  /// If location requested too frequently then , this site refuse to provide location
     function getLocationFromLatLon(lat, lon) {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
   
@@ -318,15 +333,15 @@
       .then(response => response.json())
       .then(data => {
         if (data && data.display_name) {
-          console.log('Location:', data.display_name);  // Log the location to the console
+         // console.log('Location:', data.display_name);  // Log the location to the console
           return data.display_name;  // Return the location name
         } else {
-          console.error('No location found.');
+         // console.error('No location found.');
           throw new Error('No location found');  // Throw an error if no location found
         }
       })
       .catch(error => {
-        console.error('Error:', error);
+      //  //console.error('Error:', error);
         throw error;  // Propagate the error
       });
   }

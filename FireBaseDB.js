@@ -30,6 +30,7 @@ export function saveToFirebase(patientName, currentTime,
   {
   id= id+1;
 // Save patient data to the database
+return new Promise((resolve, reject) => {
             set(ref(database, patientName+'/'+id), {
                 patientName: patientName,
                 currentTime: currentTime,
@@ -50,10 +51,13 @@ export function saveToFirebase(patientName, currentTime,
             // redirectToFile('PatientList.html');
             //  alert('Saved');
             // Call the function to redirect to PatientList.html - Not implemented in this build   
+            console.log("Data saved successfully.");
+            resolve(id); // Pass the id to the next step
             })
             .catch((error) => {
                 console.error("Error writing to database: ", error);
             });
+          });
             //window.location.href = 'Patient List.html';
     }
 
