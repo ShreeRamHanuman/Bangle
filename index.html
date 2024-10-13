@@ -1,132 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangle.js Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.puck-js.com/puck.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="designScript.js" defer></script>
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangle.js Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.puck-js.com/puck.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="designScript.js" defer></script>
+
 </head>
+
 <body>
-    <div class="container">
-        <div class="header-row d-flex justify-content-between align-items-center">
-            <div class="dashboard-title d-flex align-items-center">
-                <i class="fas fa-clock"></i>
-                             <h4 class="me-auto" id="watch-name">Bangle.js Dashboard</h4>
-            </div>
-            <div class="text-center">
-                <input type="text" id="user-name" placeholder="Enter your name for readings" class="form-control d-inline-block w-auto">
-                <button class="btn btn-primary" id="btnConnect">Get Readings</button>
-            </div>
-            <div class="text-right">
-                <h7 id="date-time">Date:</h7>
-                <div class="battery-status d-flex align-items-center">
-                    <i class="fas fa-battery-three-quarters"></i>
-                    <span id="batteryDataDisplay" class="ms-2">--%</span>
-                </div>
-            </div>
+  <div class="container">
+    <div class="header-row d-flex justify-content-between align-items-center">
+      <div class="dashboard-title d-flex align-items-center">
+        <i class="fas fa-clock"></i>
+        <h4 class="me-auto" id="watch-name">Bangle.js Dashboard</h4>
+      </div>
+      <div class="text-center">
+        <input type="text" id="user-name" placeholder="Enter your name for readings"
+          class="form-control d-inline-block w-auto">
+        <button class="btn btn-primary" id="btnConnect">Get Readings</button>
+      </div>
+      <div class="text-right">
+        <h7 id="date-time">Date:</h7>
+        <div class="battery-status d-flex align-items-center">
+          <i class="fas fa-battery-three-quarters"></i>
+          <span id="batteryDataDisplay" class="ms-2">--%</span>
         </div>
-        
-
-        <div class="dashboard-container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="dashboard-card" onclick="displayChart('heart-rate-chart', heartRateData, 'Heart Rate')">
-                        <i class="fas fa-heartbeat icon"></i>
-                        <h5>Heart Rate</h5>
-                        <p id="heartRateDisplay"> -- bpm</p>
-                        <p id="heart-rate">Confiednce : -- %</p>
-                        <div class="chart-container" id="heart-rate-chart-container" onclick="hideChart(event)">
-                            <canvas id="heart-rate-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="dashboard-card" onclick="displayChart('steps-chart', stepsData, 'Steps')">
-                        <i class="fas fa-shoe-prints icon"></i>
-                        <h5>Steps</h5>
-                        <p id="stepDataDisplay">---- steps</p>
-                        <div class="chart-container" id="steps-chart-container" onclick="hideChart(event)">
-                            <canvas id="steps-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="dashboard-card" onclick="displayChart('temperature-chart', temperatureData, 'Temperature')">
-                        <i class="fas fa-thermometer-half icon"></i>
-                        <h5>Temperature</h5>
-                        <p id="temperatureDataDisplay">--°C</p>
-                        <div class="chart-container" id="temperature-chart-container" onclick="hideChart(event)">
-                            <canvas id="temperature-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="dashboard-card" onclick="displayChart('acceleration-chart', accelerationData, 'Acceleration')">
-                        <i class="fas fa-hand-rock icon"></i>
-                        <h5>Hand Movement</h5>
-                        <p id="movement">-- m/s²</p>
-                        <div class="chart-container" id="acceleration-chart-container" onclick="hideChart(event)">
-                            <canvas id="acceleration-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="dashboard-card" >
-                        <i class="fas fa-map-marker-alt icon"></i>
-                        <h5>Current Location</h5>
-                        <p id="locationDataDisplay">--</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <script src="https://www.puck-js.com/puck.js"></script>
-    <script type="module">
-      import { saveToFirebase } from './FireBaseDB.js';
-      import { readFromFirebase } from './FireBaseDB.js';
-      var patientName = "";
-      var id =1;
-      var currentBPM = 0;
-      var currentConfidence = 0;
-      var currentTemperature = 0;
-      var currentBattery = 0;
-      var currentAccel1 = 0;
-      var currentAccel2 = 0;
-      var currentAccel3 = 0;
-      var currentStep = 0;
-     
-      var currentLatitde = 0;
-      var currentLongititude = 0;
-      var locationName = "Bruce";
-  
-     var patientNameFB = "";
-     var currentTimeFB = "";
-     var temperatureFB = "";
-     var batteryFB= "";
-     var Accel1FB= "";
-     var Accel2FB= "";
-     var Accel3FB= "";
-     var BPMFB= "";
-     var ConfidenceFB= "";
-     var StepFB= "";
-     var LatitudeFB= "";
-     var LongitudeFB= "";
-     var idFB= "";
-      
-      var connection;
-      var lastDataTime = 0; // Variable to track the last time data was processed
-      var intervalTime = 10000; // 30 seconds in milliseconds
-  
-      var BANGLE_CODE = `
+
+
+    <div class="dashboard-container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="dashboard-card" onclick="displayChart('heart-rate-chart', heartRateData, 'Heart Rate')">
+            <i class="fas fa-heartbeat icon"></i>
+            <h5>Heart Rate</h5>
+            <p id="heartRateDisplay"> -- bpm</p>
+            <p id="heart-rate">Confiednce : -- %</p>
+            <div class="chart-container" id="heart-rate-chart-container" onclick="hideChart(event)">
+              <canvas id="heart-rate-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card" onclick="displayChart('steps-chart', stepsData, 'Steps')">
+            <i class="fas fa-shoe-prints icon"></i>
+            <h5>Steps</h5>
+            <p id="stepDataDisplay">---- steps</p>
+            <div class="chart-container" id="steps-chart-container" onclick="hideChart(event)">
+              <canvas id="steps-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card" onclick="displayChart('temperature-chart', temperatureData, 'Temperature')">
+            <i class="fas fa-thermometer-half icon"></i>
+            <h5>Temperature</h5>
+            <p id="temperatureDataDisplay">--°C</p>
+            <div class="chart-container" id="temperature-chart-container" onclick="hideChart(event)">
+              <canvas id="temperature-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card" onclick="displayChart('acceleration-chart', accelerationData, 'Acceleration')">
+            <i class="fas fa-hand-rock icon"></i>
+            <h5>Hand Movement</h5>
+            <p id="movement">-- m/s²</p>
+            <div class="chart-container" id="acceleration-chart-container" onclick="hideChart(event)">
+              <canvas id="acceleration-chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <i class="fas fa-map-marker-alt icon"></i>
+            <h5>Current Location</h5>
+            <p id="locationDataDisplay">--</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://www.puck-js.com/puck.js"></script>
+  <script type="module">
+    import { saveToFirebase } from './FireBaseDB.js';
+    import { readFromFirebase } from './FireBaseDB.js';
+    var patientName = "";
+    var id = 1;
+    var currentBPM = 0;
+    var currentConfidence = 0;
+    var currentTemperature = 0;
+    var currentBattery = 0;
+    var currentAccel1 = 0;
+    var currentAccel2 = 0;
+    var currentAccel3 = 0;
+    var currentStep = 0;
+
+    var currentLatitde = 0;
+    var currentLongititude = 0;
+    var locationName = "Bruce";
+
+    var patientNameFB = "";
+    var currentTimeFB = "";
+    var temperatureFB = "";
+    var batteryFB = "";
+    var Accel1FB = "";
+    var Accel2FB = "";
+    var Accel3FB = "";
+    var BPMFB = "";
+    var ConfidenceFB = "";
+    var StepFB = "";
+    var LatitudeFB = "";
+    var LongitudeFB = "";
+    var idFB = "";
+
+    var connection;
+    var lastDataTime = 0; // Variable to track the last time data was processed
+    var intervalTime = 10000; // 30 seconds in milliseconds
+
+    var BANGLE_CODE = `
        setInterval( function() {Bangle.on('step', function(count) { // Use this for movement
         Bluetooth.println('S,' + count); // Send step count via Bluetooth
         });}, 10000); // every 3 second -- change this to 30 second
@@ -170,182 +173,183 @@
          // console.log("Accel: "+Z);
         });
       `;
-    
-      document.getElementById("btnConnect").addEventListener("click", function() {
-        // disconnect if connected already
-        if (connection) {
-          connection.close();
-          connection = undefined;
+
+    document.getElementById("btnConnect").addEventListener("click", function () {
+      // disconnect if connected already
+      if (connection) {
+        connection.close();
+        connection = undefined;
+      }
+      patientName = document.getElementById('user-name').value;
+      patientName = patientName.toUpperCase();
+      const nameDisplay = document.getElementById('watch-name');
+      nameDisplay.textContent = patientName.trim() !== "" ? patientName + "'s Bangle Readings" : "Bangle.js Dashboard";
+      // Connect
+      Puck.connect(function (c) {
+        if (!c) {
+          alert("Couldn't connect!");
+          return;
         }
-        patientName = document.getElementById('user-name').value;
-        const nameDisplay = document.getElementById('watch-name');
-        nameDisplay.textContent = patientName.trim() !== "" ? patientName + "'s Bangle Readings" : "Bangle.js Dashboard";
-        // Connect
-        Puck.connect(function(c) {
-          if (!c) {
-            alert("Couldn't connect!");
-            return;
-          }
-          connection = c;
-  
-          // Handle incoming data
+        connection = c;
+
+        // Handle incoming data
         var buf = "";
-        connection.on("data", function(d) {
+        connection.on("data", function (d) {
           buf += d;
           var lines = buf.split("\n");
           buf = lines.pop(); // Keep the last incomplete line in buffer
           lines.forEach(onLine); // Process each complete line
-          });
-  
-          // First, reset the Bangle
-          connection.write("reset();\n", function() {
-            // Wait for it to reset
-            setTimeout(function() {
-              // Now upload our code to monitor heart rate
-              connection.write("\x03\x10if(1){" + BANGLE_CODE + "}\n",
-                function() { console.log("Ready to monitor heart rate."); });
-            }, 1000);
-          });
+        });
+
+        // First, reset the Bangle
+        connection.write("reset();\n", function () {
+          // Wait for it to reset
+          setTimeout(function () {
+            // Now upload our code to monitor heart rate
+            connection.write("\x03\x10if(1){" + BANGLE_CODE + "}\n",
+              function () { console.log("Ready to monitor heart rate."); });
+          }, 1000);
         });
       });
-  
-      // Function to process each line of heart rate data
-      // Write code to split the value of Temperature, battery , Accelerometer
-      function onLine(line) {
-     //   console.log("Received: " + line);
-        var parts = line.split(",");
-        if (parts[0] === "H") {
-          currentBPM = parts[1];
-          currentConfidence = parts[2];
-        } else if (parts[0]=="B"){
-          currentBattery = parts[1];
-        } else if (parts[0]=="T"){
-          currentTemperature = parts[1];
-        } else if (parts[0]=="P"){
-          currentStep = parts[1];
-        } else if (parts[0]=="L"){
-          currentLatitde = parts[1];
-          currentLongititude = parts[2];
-        }else if (parts[0]=="A"){
-          currentAccel1 = parts[1];
-          currentAccel2 = parts[2];
-          currentAccel3 = parts[3];
-        }
-        
-        // Process heart rate data only every 10 seconds
-        var currentTime = Date.now();
-          if (currentTime - lastDataTime >= intervalTime) {
-            lastDataTime = currentTime; // Update last data time
-            
-           
-  
-              saveToFirebase(patientName, currentTime, 
-              currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
-    currentConfidence, currentStep, currentLatitde, currentLongititude ) /// Save to Firebase
-   // setInterval(readFromFB, intervalTime); // Refresh every xx seconds
-   .then((id) => {
-    // Now read the data after writing is successful
-    return readFromFB(id);
-  })
-  .then((data) => {
-    if (data) {
-      console.log("Data read from Firebase:", data);
-    }
-  })
-  .catch((error) => {
-    console.error("Error during save or read:", error);
-  });
+    });
+
+    // Function to process each line of heart rate data
+    // Write code to split the value of Temperature, battery , Accelerometer
+    function onLine(line) {
+      //   console.log("Received: " + line);
+      var parts = line.split(",");
+      if (parts[0] === "H") {
+        currentBPM = parts[1];
+        currentConfidence = parts[2];
+      } else if (parts[0] == "B") {
+        currentBattery = parts[1];
+      } else if (parts[0] == "T") {
+        currentTemperature = parts[1];
+      } else if (parts[0] == "P") {
+        currentStep = parts[1];
+      } else if (parts[0] == "L") {
+        currentLatitde = parts[1];
+        currentLongititude = parts[2];
+      } else if (parts[0] == "A") {
+        currentAccel1 = parts[1];
+        currentAccel2 = parts[2];
+        currentAccel3 = parts[3];
+      }
+
+      // Process heart rate data only every 10 seconds
+      var currentTime = Date.now();
+      if (currentTime - lastDataTime >= intervalTime) {
+        lastDataTime = currentTime; // Update last data time
+
+
+
+        saveToFirebase(patientName, currentTime,
+          currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
+          currentConfidence, currentStep, currentLatitde, currentLongititude) /// Save to Firebase & return promise
+          .then((id) => {
+            // Only read data when write is completed from the above funcion.
+            return readFromFB(id);
+          })
+          .then((data) => {
+            if (data) {
+              console.log("Data read from Firebase:", data);
             }
-          }
-  
-         function readFromFB(id) {
-         // id=id+1;
-          console.log(id);
-          // readFromFirebase(patientName,id); 
-          readFromFirebase(patientName, id).then((valFire) => { // this function starts reading value from DB
-                  if (valFire) {
-                      console.log("Patient Data HTML XXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:", valFire['patientNameFB']); // checking in console
-                      console.log("Time HTML:", valFire['currentTimeFB']);
-                      console.log("LongiXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['LongitudeFB']);
-                      console.log("ID XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['idFB']);
-                      console.log("Accel1FB XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['Accel1FB']);
-  
-                      patientNameFB = valFire['patientNameFB'];
-                      currentTimeFB = valFire['currentTimeFB'];
-                      temperatureFB = valFire['temperatureFB'];
-                      batteryFB= valFire['batteryFB'];
-                      Accel1FB= valFire['Accel1FB'];
-                      Accel2FB= valFire['Accel2FB'];
-                      Accel3FB= valFire['Accel3FB'];
-                      BPMFB= valFire['BPMFB'];
-                      ConfidenceFB= valFire['ConfidenceFB'];
-                      StepFB= valFire['StepFB'];
-                      LatitudeFB= valFire['LatitudeFB'];
-                      LongitudeFB= valFire['LongitudeFB'];
-                      idFB= valFire['idFB'];
-  
-                       /// Heart Rate
-            document.getElementById("heartRateDisplay").textContent = 
+          })
+          .catch((error) => {
+            console.error("Error during save or read:", error);
+          });
+      }
+    }
+
+    function readFromFB(id) {
+      // id=id+1;
+      console.log(id);
+      // readFromFirebase(patientName,id); 
+      readFromFirebase(patientName, id).then((valFire) => { // this function starts reading value from DB
+        if (valFire) {
+          console.log("Patient Data HTML XXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:", valFire['patientNameFB']); // checking in console
+          console.log("Time HTML:", valFire['currentTimeFB']);
+          console.log("LongiXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['LongitudeFB']);
+          console.log("ID XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['idFB']);
+          console.log("Accel1FB XXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HTML:", valFire['Accel1FB']);
+
+          patientNameFB = valFire['patientNameFB'];
+          currentTimeFB = valFire['currentTimeFB'];
+          temperatureFB = valFire['temperatureFB'];
+          batteryFB = valFire['batteryFB'];
+          Accel1FB = valFire['Accel1FB'];
+          Accel2FB = valFire['Accel2FB'];
+          Accel3FB = valFire['Accel3FB'];
+          BPMFB = valFire['BPMFB'];
+          ConfidenceFB = valFire['ConfidenceFB'];
+          StepFB = valFire['StepFB'];
+          LatitudeFB = valFire['LatitudeFB'];
+          LongitudeFB = valFire['LongitudeFB'];
+          idFB = valFire['idFB'];
+
+          /// Heart Rate
+          document.getElementById("heartRateDisplay").textContent =
             "Heart Rate: " + BPMFB + " BPM, Confidence: " + ConfidenceFB;
-            
-            // Steps
-            document.getElementById("stepDataDisplay").textContent = 
+
+          // Steps
+          document.getElementById("stepDataDisplay").textContent =
             "Steps Rate: " + StepFB;
-  
-            // Temperature
-            document.getElementById("temperatureDataDisplay").textContent = 
+
+          // Temperature
+          document.getElementById("temperatureDataDisplay").textContent =
             "Temperature: " + temperatureFB;
-  
-            // Battery
-            document.getElementById("batteryDataDisplay").textContent = 
-            "Battery: " + batteryFB ;
-  
-            // Acceleration
-            document.getElementById("movement").textContent = 
-            "Accel 1 (X):  " + Accel1FB + " Accel 2(Y): " + Accel2FB + " Accl 3 (Z): " + Accel3FB; 
-            
-            // Location
-            getLocationFromLatLon(LatitudeFB, LongitudeFB)
-             .then(locationName => {
-            document.getElementById("locationDataDisplay").textContent = "Your Location: " + locationName; // Update display
-             })
+
+          // Battery
+          document.getElementById("batteryDataDisplay").textContent =
+            "Battery: " + batteryFB;
+
+          // Acceleration
+          document.getElementById("movement").textContent =
+            "Accel 1 (X):  " + Accel1FB + " Accel 2(Y): " + Accel2FB + " Accl 3 (Z): " + Accel3FB;
+
+          // Location
+          getLocationFromLatLon(LatitudeFB, LongitudeFB)
+            .then(locationName => {
+              document.getElementById("locationDataDisplay").textContent = "Your Location: " + locationName; // Update display
+            })
             .catch(error => {
-            // console.error('Failed to fetch location:', error);
-            document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
-              });
-                      
-                  } else {
-                      console.log("No patient data found.");
-                  }
-              }).catch((error) => {
-                  console.error("Error ERROR fetching patient data: ", error);
-              });
-          }
-         
-  
-  ///// Creating function for https://nominatim.org/ API, OPEN street map.
-  /// Getting Location using https://nominatim.org API 
-  /// If location requested too frequently then , this site refuse to provide location
-    function getLocationFromLatLon(lat, lon) {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
-  
-    return fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data && data.display_name) {
-         // console.log('Location:', data.display_name);  // Log the location to the console
-          return data.display_name;  // Return the location name
+              // console.error('Failed to fetch location:', error);
+              document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
+            });
+
         } else {
-         // console.error('No location found.');
-          throw new Error('No location found');  // Throw an error if no location found
+          console.log("No patient data found.");
         }
-      })
-      .catch(error => {
-      //  //console.error('Error:', error);
-        throw error;  // Propagate the error
+      }).catch((error) => {
+        console.error("Error ERROR fetching patient data: ", error);
       });
-  }
+    }
+
+
+    ///// Creating function for https://nominatim.org/ API, OPEN street map.
+    /// Getting Location using https://nominatim.org API 
+    /// If location requested too frequently then , this site refuse to provide location
+    function getLocationFromLatLon(lat, lon) {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
+      return fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.display_name) {
+            // console.log('Location:', data.display_name);  // Log the location to the console
+            return data.display_name;  // Return the location name
+          } else {
+            // console.error('No location found.');
+            throw new Error('No location found');  // Throw an error if no location found
+          }
+        })
+        .catch(error => {
+          //  //console.error('Error:', error);
+          throw error;  // Propagate the error
+        });
+    }
   </script>
-   
+
 </body>
+
 </html>
