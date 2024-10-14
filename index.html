@@ -96,6 +96,7 @@
   <script type="module">
     import { saveToFirebase } from './FireBaseDB.js';
     import { readFromFirebase } from './FireBaseDB.js';
+   // import { displayChart } from './designScript.js';
     var patientName = "";
     var id = 1;
     var currentBPM = 0;
@@ -316,6 +317,24 @@
               // console.error('Failed to fetch location:', error);
               document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
             });
+
+
+    // Add the new heart rate value and the current time to the chart
+    const heartRateData = {
+    labels: [],
+    datasets: [{
+        label: 'Heart Rate (bpm)',
+        data:[], // Get data from firebase & update every time new data is received
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    }]
+};
+    heartRateData.labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    heartRateData.datasets[0].data.push(BPMFB);
+
+    // Display the chart with updated data
+    displayChart('heart-rate-chart', heartRateData, 'Heart Rate (bpm)');
+
 
         } else {
           console.log("No patient data found.");
