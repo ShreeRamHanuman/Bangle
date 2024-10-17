@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://www.puck-js.com/puck.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script src="designScript.js" defer></script>
 
 </head>
@@ -320,20 +321,20 @@
 
 
     // Add the new heart rate value and the current time to the chart
-    const heartRateData = {
-    labels: [],
-    datasets: [{
-        label: 'Heart Rate (bpm)',
-        data:[], // Get data from firebase & update every time new data is received
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    }]
-};
-    heartRateData.labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-    heartRateData.datasets[0].data.push(BPMFB);
+//     const heartRateData = {
+//     labels: [],
+//     datasets: [{
+//         label: 'Heart Rate (bpm)',
+//         data:[], // Get data from firebase & update every time new data is received
+//         borderColor: 'rgba(255, 99, 132, 1)',
+//         backgroundColor: 'rgba(255, 99, 132, 0.2)',
+//     }]
+// };
+    // heartRateData.labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    // heartRateData.datasets[0].data.push(BPMFB);
 
     // Display the chart with updated data
-    displayChart('heart-rate-chart', heartRateData, 'Heart Rate (bpm)');
+   // displayChart('heart-rate-chart', heartRateData, 'Heart Rate (bpm)');
 
 
         } else {

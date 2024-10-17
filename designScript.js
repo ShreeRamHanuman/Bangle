@@ -1,6 +1,8 @@
 //// Script for HTML design Only for dashboard
 /// Puskar KC
 /// 14 Sept 2024
+
+//import { listenForFirebaseUpdate } from './FireBaseDB.js';
 function updateName() {
     const nameInput = document.getElementById('user-name').value;
     const nameDisplay = document.getElementById('watch-name');
@@ -20,10 +22,10 @@ for (let i = 0; i < 2; i++) {
 }
 
 const heartRateData = {
-    labels: labels,
+    labels: [], // get time labels from firebase
     datasets: [{
         label: 'Heart Rate (bpm)',
-        data: [70, 75, 78, 74, 80],
+        data: [],// get heart rate from firebase
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
     }]
@@ -86,6 +88,7 @@ function displayChart(chartId, data, label) {
             }
         }
     });
+    listenForFirebaseUpdate(chartId); // listing the updated data
 }
 
 function hideChart(event) {

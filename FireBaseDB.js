@@ -63,11 +63,12 @@ return new Promise((resolve, reject) => {
 
        
 // Function to read data based on patient name
+var patientRef="";
 export async function readFromFirebase(patientName, id) {
   try{  
   const database = getDatabase();
   const path = `${patientName}/${id}`;
-    const patientRef = ref(database, path);
+     patientRef = ref(database, path);
 const snapshot = await get(patientRef);
     
             if (snapshot.exists()) {
@@ -101,6 +102,28 @@ const snapshot = await get(patientRef);
             console.error("Error reading from database: ", error);
         }
 }
-//readFromFirebase("Puskar"); // Replace "JohnDoe" with the actual patient name
+/// Function to update chart when new child is added
+
+export function listenForFirebaseUpdate(chartInstance) {
+  if(patientRef){
+  
+  onChildAdded(patientRef, (snapshot) => {
+    const newData = snapshot.val();
+    
+    // Assuming newData contains "timestamp" and "value"
+    const newLabel = newData.currentTime; // e.g., '2024-10-17 10:30:00'
+    const newValue = newData.BPM; // e.g., heart rate in bpm
+    
+    // Add new data to chart
+    chartInstance.data.labels.push(newLabel);
+    chartInstance.data.datasets[0].data.push(newValue);
+    
+    // Update the chart
+    chartInstance.update();
+  });
+}else{
+  console.log("Database on patientRef varaible is not coming");
+}
+}
 
 
