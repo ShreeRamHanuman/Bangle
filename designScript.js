@@ -4,8 +4,7 @@
 
 console.log("Design file loaded");
 
-//import { listenForFirebaseUpdate } from './FireBaseDB.js';
-//import { saveToFirebase, readFromFirebase } from './FireBaseDB.js';
+
 function updateName() {
     const nameInput = document.getElementById('user-name').value;
     const nameDisplay = document.getElementById('watch-name');

@@ -184,7 +184,7 @@
       }
       patientName = document.getElementById('user-name').value;
       patientName = patientName.toUpperCase();
-      const nameDisplay = document.getElementById('watch-name');
+     const nameDisplay = document.getElementById('watch-name');
       nameDisplay.textContent = patientName.trim() !== "" ? patientName + "'s Bangle Readings" : "Bangle.js Dashboard";
       // Connect
       Puck.connect(function (c) {
