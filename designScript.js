@@ -18,7 +18,8 @@ setInterval(() => {
 }, 1000);
 
 // Initial time labels
-var heartRateData="";
+
+
 function updateCharts(idFB, BPMFB, StepFB, temperatureFB, Accel1FB,Accel2FB,Accel3FB) {
     // Heart Rate Data
     console.log("ID from Designscript update chart function", idFB);
@@ -35,8 +36,9 @@ function updateCharts(idFB, BPMFB, StepFB, temperatureFB, Accel1FB,Accel2FB,Acce
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
     }]
+    
 };
-
+console.log("design file heart", heartRateData);
 const stepsData = {
     labels: idFB,
     datasets: [{
