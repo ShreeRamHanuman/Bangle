@@ -103,6 +103,7 @@ const snapshot = await get(patientRef);
         }
 }
 /// Function to update chart when new child is added
+/// Why i am writing this function , already data is download from above function.
 
 export function listenForFirebaseUpdate(chartInstance) {
   if(patientRef){

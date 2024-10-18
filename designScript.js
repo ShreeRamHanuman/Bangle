@@ -2,7 +2,10 @@
 /// Puskar KC
 /// 14 Sept 2024
 
+console.log("Design file loaded");
+
 //import { listenForFirebaseUpdate } from './FireBaseDB.js';
+//import { saveToFirebase, readFromFirebase } from './FireBaseDB.js';
 function updateName() {
     const nameInput = document.getElementById('user-name').value;
     const nameDisplay = document.getElementById('watch-name');
@@ -16,23 +19,27 @@ setInterval(() => {
 }, 1000);
 
 // Initial time labels
-const labels = [];
-for (let i = 0; i < 2; i++) {
-    labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-}
+var heartRateData="";
+function updateCharts(idFB, BPMFB, StepFB, temperatureFB, Accel1FB,Accel2FB,Accel3FB) {
+    // Heart Rate Data
+    console.log("ID from Designscript update chart function", idFB);
+    console.log("BPMFB from Designscript update chart function", BPMFB);
+    console.log("StepFB from Designscript update chart function", StepFB);
+    console.log("temperatureFB from Designscript update chart function", temperatureFB);
+    console.log("Accel1FB from Designscript update chart function", Accel1FB + Accel2FB + Accel3FB);
 
-const heartRateData = {
-    labels: [], // get time labels from firebase
+ heartRateData = {
+    labels: idFB, // get time labels from firebase
     datasets: [{
         label: 'Heart Rate (bpm)',
-        data: [],// get heart rate from firebase
+        data: BPMFB,// get heart rate from firebase
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
     }]
 };
 
 const stepsData = {
-    labels: ['10 AM', '11 AM', '12 PM', '1 PM', '2 PM'],
+    labels: idFB,
     datasets: [{
         label: 'Steps',
         data: [1000, 2000, 3000, 4000, 5000],
@@ -60,7 +67,7 @@ const accelerationData = {
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
     }]
 };
-
+}
 function displayChart(chartId, data, label) {
     const chartContainer = document.querySelector(`#${chartId.replace('-chart', '-chart-container')}`);
     const chartCanvas = document.getElementById(chartId);
@@ -88,7 +95,7 @@ function displayChart(chartId, data, label) {
             }
         }
     });
-    listenForFirebaseUpdate(chartId); // listing the updated data
+   
 }
 
 function hideChart(event) {
