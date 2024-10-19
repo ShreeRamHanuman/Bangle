@@ -240,12 +240,13 @@
 
       // Process data only every 10 seconds
       var currentTime = Date.now();
+      var currentTimeID = currentTime;
       if (currentTime - lastDataTime >= intervalTime) {
         lastDataTime = currentTime; // Update last data time
-
+        currentTime= new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         saveToFirebase(patientName, currentTime,
           currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
-          currentConfidence, currentStep, currentLatitde, currentLongititude) /// Save to Firebase & return promise
+          currentConfidence, currentStep, currentLatitde, currentLongititude, currentTimeID) /// Save to Firebase & return promise
           .then((id) => {
             // Only read data when write is completed from the above funcion.
             return readFromFB(id);
@@ -317,7 +318,7 @@
               document.getElementById("locationDataDisplay").textContent = "Location could not be retrieved.";
             });
 
-            updateCharts(idFB, BPMFB, StepFB, temperatureFB, Accel1FB,Accel2FB,Accel3FB); /// Sending values for chart, Working
+            updateCharts(currentTimeFB, BPMFB, StepFB, temperatureFB, Accel1FB,Accel2FB,Accel3FB); /// Sending values for chart, Working
             // Note for Puskar---> work everything for chart in designScript.js File
            
         } else {

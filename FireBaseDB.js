@@ -26,9 +26,9 @@ var id =0;
 
 export function saveToFirebase(patientName, currentTime, 
   currentTemperature, currentBattery, currentAccel1, currentAccel2, currentAccel3, currentBPM,
-  currentConfidence, currentStep, currentLatitde, currentLongititude ) 
+  currentConfidence, currentStep, currentLatitde, currentLongititude,currentTimeID ) 
   {
-  id= currentTime;
+  id= currentTimeID;
 // Save patient data to the database
 return new Promise((resolve, reject) => {
             set(ref(database, patientName+'/'+id), {
