@@ -25,6 +25,10 @@ let temperatureData = {};
 let accelerationData = {};
 
 function updateCharts(currentTimeFB, BPMFB, StepFB, temperatureFB, Accel1FB, Accel2FB, Accel3FB) {
+       const MAX_POINTS = 10;
+    if (idFB1.length >= MAX_POINTS) {
+        idFB1.shift(); BPMFB1.shift(); // Remove oldest points
+    }
     idFB1.push(currentTimeFB);
     BPMFB1.push(BPMFB);
 
